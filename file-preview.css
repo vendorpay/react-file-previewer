@@ -18,8 +18,9 @@ body {
   margin: 0;
 }
 
-/* previewer classes */
 
+
+/* previewer classes */
 .vp-preview-wrapper {
   width: 100%;
   display: flex;
@@ -48,6 +49,7 @@ body {
 .vp-preview-button:active {
 
 }
+
 
 
 .vp-preview-bar {
@@ -81,9 +83,6 @@ body {
 
 
 
-
-
-
 .vp-preview-icons {
   position: absolute;
   z-index: 999;
@@ -104,9 +103,6 @@ body {
 
 
 
-
-
-
 .vp-preview-content {
   position: relative;
   width: 100%;
@@ -115,4 +111,5 @@ body {
   overflow: scroll;
 }
 .vp-preview-content .vp-preview-file {
+  padding: 12px;
 }
