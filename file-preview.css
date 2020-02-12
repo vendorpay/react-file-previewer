@@ -57,7 +57,7 @@ body {
   justify-content: space-between;
   align-items: center;
   align-content: center;
-  background-color: #000;
+  background-color: #2B2F39;
   color: #fff;
   width: 100%;
   height: 52px;
@@ -107,7 +107,7 @@ body {
   position: relative;
   width: 100%;
   height: calc(100vh - 52px);
-  background-color: red;
+  background-color: #68738a;
   overflow: scroll;
 }
 .vp-preview-content .vp-preview-file {
