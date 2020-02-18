@@ -1,0 +1,48 @@
+{
+  "name": "react-file-previewer",
+  "version": "0.1.0",
+  "main": "index.js",
+  "repository": "git@github.com:vendorpay/file-previewer.git",
+  "author": "yolo<rec@weareyolo.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "lint": "echo 'todo'",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "lint-staged": {
+    "*.js": [
+      "yarn run lint",
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "peerDependencies": {
+    "react": "^16.12.0"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.9.3",
+    "@material-ui/icons": "^4.9.1",
+    "mdi-material-ui": "^6.12.0",
+    "ramda": "^0.27.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "@storybook/addon-actions": "^5.3.13",
+    "@storybook/addon-links": "^5.3.13",
+    "@storybook/addons": "^5.3.13",
+    "@storybook/react": "^5.3.13",
+    "babel-jest": "^25.1.0",
+    "babel-loader": "^8.0.6",
+    "husky": "^4.2.3",
+    "jest": "^25.1.0",
+    "lint-staged": "^10.0.7",
+    "prettier": "^1.19.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-test-renderer": "^16.12.0"
+  }
+}
