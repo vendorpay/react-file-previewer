@@ -1,7 +1,7 @@
 {
   "name": "react-file-previewer",
   "version": "0.1.0",
-  "main": "index.js",
+  "main": "src/FilePreviewer.js",
   "repository": "git@github.com:vendorpay/file-previewer.git",
   "author": "yolo<rec@weareyolo.com>",
   "license": "MIT",
@@ -25,7 +25,8 @@
     "@material-ui/core": "^4.9.3",
     "@material-ui/icons": "^4.9.1",
     "mdi-material-ui": "^6.12.0",
-    "ramda": "^0.27.0"
+    "ramda": "^0.27.0",
+    "react-pdf": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

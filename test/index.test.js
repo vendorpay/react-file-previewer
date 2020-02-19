@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import FilePreviewer from '../src';
+import FilePreviewer from '../src/FilePreviewer';
 
 test('todo', () => {
   const component = renderer.create(<FilePreviewer />);
