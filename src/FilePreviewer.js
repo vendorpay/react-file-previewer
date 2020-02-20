@@ -2,6 +2,8 @@ import * as R from 'ramda';
 import React, { useState, useEffect } from 'react';
 
 import styles from './styles';
+import setZoomIn from './utils/setZoomIn';
+import setZoomOut from './utils/setZoomOut';
 import hasManyFiles from './utils/hasManyFiles';
 import getTotalFiles from './utils/getTotalFiles';
 import setNewRotation from './utils/setNewRotation';
@@ -61,13 +63,23 @@ const FilePreviewer = ({ files, onFilesChange }) => {
   };
 
   const handleRotate = () => {
-    const updatedfiles = R.adjust(
+    const updatedFiles = R.adjust(
       currentFileIndex - 1,
       setNewRotation,
       filesProxy,
     );
 
-    setFilesChangeProxy(updatedfiles);
+    setFilesChangeProxy(updatedFiles);
+  };
+
+  const handleZoomIn = () => {
+    const updatedFiles = R.adjust(currentFileIndex - 1, setZoomIn, filesProxy);
+    setFilesChangeProxy(updatedFiles);
+  };
+
+  const handleZoomOut = () => {
+    const updatedFiles = R.adjust(currentFileIndex - 1, setZoomOut, filesProxy);
+    setFilesChangeProxy(updatedFiles);
   };
 
   // RENDER.
@@ -82,14 +94,19 @@ const FilePreviewer = ({ files, onFilesChange }) => {
         onPageDown={handlePageDown}
       />
 
-      <ViewportControl currentPage={currentFileIndex} files={filesProxy} />
-
       <ViewportContent
         totalPages={totalPages}
         currentPage={currentPage}
         onTotalPages={handleTotalPages}
         onCurrentPageChange={handleCurrentPageChange}
         file={R.nth(currentFileIndex - 1, filesProxy)}
+      />
+
+      <ViewportControl
+        files={filesProxy}
+        onZoomIn={handleZoomIn}
+        onZoomOut={handleZoomOut}
+        currentPage={currentFileIndex}
       />
 
       {hasManyFiles(filesProxy) && (

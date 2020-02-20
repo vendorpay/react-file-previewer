@@ -47,7 +47,7 @@ const PDFViewer = ({
       onLoadSuccess={({ numPages }) => onTotalPages(numPages)}
     >
       <div style={styles.pdfPage}>
-        <Page pageNumber={currentPage} />
+        <Page pageNumber={currentPage} scale={file.scale || 1} />
       </div>
     </Document>
   );
