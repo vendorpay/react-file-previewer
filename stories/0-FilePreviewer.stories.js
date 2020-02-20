@@ -34,6 +34,20 @@ export const imageOnly = () => (
   <FilePreviewer files={[{ url: IMAGE1_URL, rotate: 0 }]} />
 );
 
+export const imageRotated = () => (
+  <FilePreviewer
+    files={[{ url: IMAGE1_URL, rotate: 90 }]}
+    onFilesChange={console.log}
+  />
+);
+
+export const imageScaled = () => (
+  <FilePreviewer
+    files={[{ url: IMAGE1_URL, rotate: 0, scale: 1.25 }]}
+    onFilesChange={console.log}
+  />
+);
+
 export const imageAndPDF = () => (
   <FilePreviewer
     files={[

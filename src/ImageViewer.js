@@ -1,9 +1,10 @@
 import React from 'react';
 
-import styles from './styles';
-
 const ImageViewer = ({ file }) => (
-  <img src={file.url} style={{ transform: `rotate(${file.rotate}deg)` }} />
+  <img
+    src={file.url}
+    style={{ transform: `rotate(${file.rotate}deg) scale(${file.scale})` }}
+  />
 );
 
 export default ImageViewer;
