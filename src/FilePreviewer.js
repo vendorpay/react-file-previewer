@@ -2,29 +2,19 @@ import * as R from 'ramda';
 import React, { useState, useEffect } from 'react';
 
 import styles from './styles';
+import hasManyFiles from './utils/hasManyFiles';
+import getTotalFiles from './utils/getTotalFiles';
+import setNewRotation from './utils/setNewRotation';
+
 import PreviewBar from './PreviewBar';
 import ViewportControl from './ViewportControl';
 import ViewportContent from './ViewportContent';
-
-/**
- * Get the amount of pages.
- *
- * @param  {Array} pages
- * @return {Number}
- */
-const getGetTotalPages = R.o(R.max(1), R.length);
-
-/**
- *
- */
-const setNewRotation = R.converge(R.assoc('rotate'), [
-  R.compose(R.modulo(R.__, 360), R.add(90), R.propOr(0, 'rotate')),
-  R.identity,
-]);
+import FilesController from './FilesController';
 
 const FilePreviewer = ({ files, onFilesChange }) => {
-  const [currentPage, setCurrentPage] = useState(1);
+  // States for multiple files and their manipulation.
   const [filesProxy, setFilesChangeProxy] = useState(files);
+  const [currentFileIndex, setCurrentFileIndex] = useState(1);
 
   useEffect(() => {
     if (R.is(Function, onFilesChange)) {
@@ -35,21 +25,52 @@ const FilePreviewer = ({ files, onFilesChange }) => {
   }, [filesProxy]);
 
   // Get the total pages amount.
-  const totalPages = getGetTotalPages(files);
+  const totalFiles = getTotalFiles(files);
 
   // Get a function to range the `currentPage` possible values.
-  const clampPage = R.clamp(1, totalPages);
+  const currentFileClamp = R.clamp(1, totalFiles);
 
-  const handlePageUp = () =>
-    setCurrentPage(prevState => clampPage(prevState - 1));
+  // States for multiple-pages documents.
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const handlePageDown = () =>
-    setCurrentPage(prevState => clampPage(prevState + 1));
+  // HANDLERS.
+
+  const handlePreviousFile = () => {
+    setCurrentFileIndex(prevState => currentFileClamp(prevState - 1));
+  };
+
+  const handleNextFile = () => {
+    setCurrentFileIndex(prevState => currentFileClamp(prevState + 1));
+  };
+
+  const handlePageUp = () => {
+    setCurrentPage(prevState => R.clamp(1, totalPages, prevState - 1));
+  };
+
+  const handlePageDown = () => {
+    setCurrentPage(prevState => R.clamp(1, totalPages, prevState + 1));
+  };
+
+  const handleTotalPages = totalPages => {
+    setTotalPages(totalPages);
+  };
+
+  const handleCurrentPageChange = currentPage => {
+    setCurrentPage(currentPage);
+  };
 
   const handleRotate = () => {
-    const updatedfiles = R.adjust(currentPage - 1, setNewRotation, filesProxy);
+    const updatedfiles = R.adjust(
+      currentFileIndex - 1,
+      setNewRotation,
+      filesProxy,
+    );
+
     setFilesChangeProxy(updatedfiles);
   };
+
+  // RENDER.
 
   return (
     <div style={styles.wrapperStyles}>
@@ -61,9 +82,24 @@ const FilePreviewer = ({ files, onFilesChange }) => {
         onPageDown={handlePageDown}
       />
 
-      <ViewportControl currentPage={currentPage} files={filesProxy} />
+      <ViewportControl currentPage={currentFileIndex} files={filesProxy} />
 
-      <ViewportContent currentPage={currentPage} files={filesProxy} />
+      <ViewportContent
+        totalPages={totalPages}
+        currentPage={currentPage}
+        onTotalPages={handleTotalPages}
+        onCurrentPageChange={handleCurrentPageChange}
+        file={R.nth(currentFileIndex - 1, filesProxy)}
+      />
+
+      {hasManyFiles(filesProxy) && (
+        <FilesController
+          files={filesProxy}
+          onNextFile={handleNextFile}
+          currentPage={currentFileIndex}
+          onPreviousFile={handlePreviousFile}
+        />
+      )}
     </div>
   );
 };

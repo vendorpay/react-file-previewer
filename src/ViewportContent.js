@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as R from 'ramda';
-import { Document, Page } from 'react-pdf';
 
 import styles from './styles';
+import PDFViewer from './PDFViewer';
+import ImageViewer from './ImageViewer';
 
 /**
  * Check if a file is a pdf.
@@ -12,53 +13,51 @@ import styles from './styles';
  */
 const isPDF = R.o(R.endsWith('.pdf'), R.prop('url'));
 
-/**
- * Get a PDF `<Page />` per total pages.
- *
- * @param {Number} totalPages
- * @return {Array}
- */
-const getPDFPage = R.times(index => (
-  <div style={styles.pdfPage}>
-    <Page pageIndex={index} />
-  </div>
-));
-
-const PDFViewer = ({ file }) => {
-  const [totalPages, setTotalPages] = useState(1);
-
-  return (
-    <Document
-      file={file.url}
-      rotate={file.rotate}
-      onLoadSuccess={({ numPages }) => setTotalPages(numPages)}
-    >
-      {getPDFPage(totalPages)}
-    </Document>
-  );
-};
-
-const ImageViewer = ({ file }) => (
-  <img src={file.url} style={{ transform: `rotate(${file.rotate}deg)` }} />
-);
-
-const FileContainer = ({ file }) => (
-  <div style={styles.file}>
-    {isPDF(file) ? <PDFViewer file={file} /> : <ImageViewer file={file} />}
-  </div>
-);
-
-const ViewportContent = ({ currentPage, files = [] }) => (
+const ViewportContent = ({
+  file,
+  totalPages,
+  currentPage,
+  onTotalPages,
+  onCurrentPageChange,
+}) => (
   <div style={styles.content}>
-    <FileContainer file={R.nth(currentPage - 1, files)} />
+    <div style={styles.file}>
+      {isPDF(file) ? (
+        <PDFViewer
+          file={file}
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onTotalPages={onTotalPages}
+          onCurrentPageChange={onCurrentPageChange}
+        />
+      ) : (
+        <ImageViewer file={file} />
+      )}
+    </div>
   </div>
 );
 
-export const ViewportContentDisplayAll = ({ files = [] }) => (
+export const ViewportContentDisplayAll = ({
+  files = [],
+  totalPages,
+  currentPage,
+  onTotalPages,
+  onCurrentPageChange,
+}) => (
   <div style={styles.content}>
-    {files.map(file => (
-      <FileContainer file={file} />
-    ))}
+    {files.map(file =>
+      isPDF(file) ? (
+        <PDFViewer
+          file={file}
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onTotalPages={onTotalPages}
+          onCurrentPageChange={onCurrentPageChange}
+        />
+      ) : (
+        <ImageViewer file={file} />
+      ),
+    )}
   </div>
 );
 
