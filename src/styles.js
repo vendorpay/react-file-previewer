@@ -6,6 +6,7 @@ const button = {
   lineHeight: '1',
   outline: 'none',
   fontSize: '24px',
+  cursor: 'pointer',
   textAlign: 'center',
   borderRadius: '3px',
   backgroundColor: 'transparent',
@@ -83,6 +84,7 @@ export default {
 
   content: {
     width: '100%',
+    display: 'flex',
     overflow: 'scroll',
     position: 'relative',
     backgroundColor: '#68738a',
@@ -90,7 +92,12 @@ export default {
   },
 
   file: {
+    margin: 'auto',
     padding: '12px',
+  },
+
+  pdfPage: {
+    marginBottom: '12px',
   },
 
   span: {
