@@ -9,9 +9,23 @@ const IMAGE1_URL =
 
 export default { title: 'FilePreviewer' };
 
-export const pdfOnly = () => (
+export const PDFOnly = () => (
   <FilePreviewer
     files={[{ url: PDF1_URL, rotate: 0 }]}
+    onFilesChange={console.log}
+  />
+);
+
+export const PDFRotated = () => (
+  <FilePreviewer
+    files={[{ url: PDF1_URL, rotate: 90 }]}
+    onFilesChange={console.log}
+  />
+);
+
+export const PDFScaled = () => (
+  <FilePreviewer
+    files={[{ url: PDF1_URL, rotate: 0, scale: 1.25 }]}
     onFilesChange={console.log}
   />
 );
@@ -20,7 +34,21 @@ export const imageOnly = () => (
   <FilePreviewer files={[{ url: IMAGE1_URL, rotate: 0 }]} />
 );
 
-export const imageAndPdf = () => (
+export const imageRotated = () => (
+  <FilePreviewer
+    files={[{ url: IMAGE1_URL, rotate: 90 }]}
+    onFilesChange={console.log}
+  />
+);
+
+export const imageScaled = () => (
+  <FilePreviewer
+    files={[{ url: IMAGE1_URL, rotate: 0, scale: 1.25 }]}
+    onFilesChange={console.log}
+  />
+);
+
+export const imageAndPDF = () => (
   <FilePreviewer
     files={[
       { url: PDF1_URL, rotate: 0 },
