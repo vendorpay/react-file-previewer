@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import styles from './styles';
 import setZoomIn from './utils/setZoomIn';
@@ -7,6 +7,7 @@ import setZoomOut from './utils/setZoomOut';
 import hasManyFiles from './utils/hasManyFiles';
 import getTotalFiles from './utils/getTotalFiles';
 import setNewRotation from './utils/setNewRotation';
+import getFitToScreenScale from './utils/getFitToScreenScale';
 
 import PreviewBar from './PreviewBar';
 import ViewportControl from './ViewportControl';
@@ -82,6 +83,23 @@ const FilePreviewer = ({ files, onFilesChange }) => {
     setFilesChangeProxy(updatedFiles);
   };
 
+  // const [usingFitToScreen, setUsingFitToScreen] = useState(false);
+
+  const viewportRef = useRef(null);
+  const contentRef = useRef(null);
+
+  const handleFitToScreen = () => {
+    const fts = getFitToScreenScale(viewportRef.current, contentRef.current);
+
+    const updatedFiles = R.adjust(
+      currentFileIndex - 1,
+      R.assoc('scale', fts),
+      filesProxy,
+    );
+
+    setFilesChangeProxy(updatedFiles);
+  };
+
   // RENDER.
 
   return (
@@ -95,7 +113,9 @@ const FilePreviewer = ({ files, onFilesChange }) => {
       />
 
       <ViewportContent
+        contentRef={contentRef}
         totalPages={totalPages}
+        viewportRef={viewportRef}
         currentPage={currentPage}
         onTotalPages={handleTotalPages}
         onCurrentPageChange={handleCurrentPageChange}
@@ -107,6 +127,7 @@ const FilePreviewer = ({ files, onFilesChange }) => {
         onZoomIn={handleZoomIn}
         onZoomOut={handleZoomOut}
         currentPage={currentFileIndex}
+        onFitToScreen={handleFitToScreen}
       />
 
       {hasManyFiles(filesProxy) && (
