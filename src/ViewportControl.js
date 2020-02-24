@@ -6,7 +6,7 @@ import ArrowExpandHorizontal from 'mdi-material-ui/ArrowExpandHorizontal';
 import Button from './Button';
 import styles from './styles';
 
-const ViewportControl = ({ onZoomIn, onZoomOut }) => (
+const ViewportControl = ({ onZoomIn, onZoomOut, onFitToScreen }) => (
   <div style={styles.icons}>
     <Button onClick={onZoomIn}>
       <PlusBox />
@@ -16,7 +16,7 @@ const ViewportControl = ({ onZoomIn, onZoomOut }) => (
       <MinusBox />
     </Button>
 
-    <Button style={styles.iconsButton}>
+    <Button onClick={onFitToScreen} style={styles.iconsButton}>
       <ArrowExpandHorizontal />
     </Button>
   </div>
