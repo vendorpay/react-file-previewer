@@ -1,4 +1,6 @@
 import React from 'react';
+import { action } from '@storybook/addon-actions';
+
 import FilePreviewer from '../src/FilePreviewer';
 
 const PDF1_URL =
@@ -12,21 +14,21 @@ export default { title: 'FilePreviewer' };
 export const PDFOnly = () => (
   <FilePreviewer
     files={[{ url: PDF1_URL, rotate: 0 }]}
-    onFilesChange={console.log}
+    onFilesChange={action('onFilesChange')}
   />
 );
 
 export const PDFRotated = () => (
   <FilePreviewer
     files={[{ url: PDF1_URL, rotate: 90 }]}
-    onFilesChange={console.log}
+    onFilesChange={action('onFilesChange')}
   />
 );
 
 export const PDFScaled = () => (
   <FilePreviewer
     files={[{ url: PDF1_URL, rotate: 0, scale: 1.25 }]}
-    onFilesChange={console.log}
+    onFilesChange={action('onFilesChange')}
   />
 );
 
@@ -37,14 +39,14 @@ export const imageOnly = () => (
 export const imageRotated = () => (
   <FilePreviewer
     files={[{ url: IMAGE1_URL, rotate: 90 }]}
-    onFilesChange={console.log}
+    onFilesChange={action('onFilesChange')}
   />
 );
 
 export const imageScaled = () => (
   <FilePreviewer
     files={[{ url: IMAGE1_URL, rotate: 0, scale: 1.25 }]}
-    onFilesChange={console.log}
+    onFilesChange={action('onFilesChange')}
   />
 );
 
@@ -54,6 +56,6 @@ export const imageAndPDF = () => (
       { url: PDF1_URL, rotate: 0 },
       { url: IMAGE1_URL, rotate: 0 },
     ]}
-    onFilesChange={console.log}
+    onFilesChange={action('onFilesChange')}
   />
 );
