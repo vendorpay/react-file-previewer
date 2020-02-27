@@ -6,6 +6,6 @@ import * as R from 'ramda';
  * @param  {Array} files
  * @return {Boolean}
  */
-const hasManyFiles = R.o(R.gt(1), R.length);
+const hasManyFiles = R.o(R.gt(R.__, 1), R.length);
 
 export default hasManyFiles;
