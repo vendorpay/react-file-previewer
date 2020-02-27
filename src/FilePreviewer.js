@@ -1,4 +1,5 @@
 import * as R from 'ramda';
+import saveFile from 'file-saver';
 import React, { useState, useRef, useEffect } from 'react';
 
 import styles from './styles';
@@ -83,8 +84,6 @@ const FilePreviewer = ({ files, onFilesChange }) => {
     setFilesChangeProxy(updatedFiles);
   };
 
-  // const [usingFitToScreen, setUsingFitToScreen] = useState(false);
-
   const viewportRef = useRef(null);
   const contentRef = useRef(null);
 
@@ -100,6 +99,16 @@ const FilePreviewer = ({ files, onFilesChange }) => {
     setFilesChangeProxy(updatedFiles);
   };
 
+  const handleDownload = () => {
+    const currentFile = R.nth(currentFileIndex - 1, filesProxy);
+
+    const url =
+      currentFile.url ||
+      `data:${currentFile.mimeType};base64,${currentFile.data}`;
+
+    return saveFile(url, currentFile.name || 'default.pdf');
+  };
+
   // RENDER.
 
   return (
@@ -109,6 +118,7 @@ const FilePreviewer = ({ files, onFilesChange }) => {
         totalPages={totalPages}
         onRotate={handleRotate}
         currentPage={currentPage}
+        onDownload={handleDownload}
         onPageDown={handlePageDown}
       />
 
