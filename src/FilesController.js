@@ -9,10 +9,10 @@ const styles = {
   background: 'rgba(0, 0, 0, .5)',
 };
 
-const FilesController = ({ currentPage, files }) => (
+const FilesController = ({ currentFile, files }) => (
   <div styles={styles}>
     <span>
-      {currentPage} of {getTotalFiles(files)}
+      {currentFile + 1} of {getTotalFiles(files)}
     </span>
   </div>
 );

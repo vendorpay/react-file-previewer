@@ -16,8 +16,8 @@ const PreviewBarLeft = ({ totalPages, currentPage, onPageUp, onPageDown }) => (
     {/* Page to go up means going back. */}
     <Button
       onClick={onPageUp}
-      disabled={currentPage === 1}
-      style={currentPage === 1 ? disabledButton : {}}
+      disabled={currentPage === 0}
+      style={currentPage === 0 ? disabledButton : {}}
     >
       <ChevronUp />
     </Button>
@@ -25,8 +25,8 @@ const PreviewBarLeft = ({ totalPages, currentPage, onPageUp, onPageDown }) => (
     {/* Page to go down means going next. */}
     <Button
       onClick={onPageDown}
-      disabled={currentPage === totalPages}
-      style={currentPage === totalPages ? disabledButton : {}}
+      disabled={currentPage + 1 === totalPages}
+      style={currentPage + 1 === totalPages ? disabledButton : {}}
     >
       <ChevronDown />
     </Button>

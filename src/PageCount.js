@@ -4,7 +4,7 @@ import styles from './styles';
 
 const PageCount = ({ current, total }) => (
   <span style={styles.previewBarLeftPagecount}>
-    {current} of {total}
+    {current + 1} of {total}
   </span>
 );
 

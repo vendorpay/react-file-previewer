@@ -1,6 +1,5 @@
-import React from 'react';
-import { action } from '@storybook/addon-actions';
 
+import React, { useState } from 'react';
 import FilePreviewer from '../src/FilePreviewer';
 
 const PDF1_URL =
@@ -11,51 +10,51 @@ const IMAGE1_URL =
 
 export default { title: 'FilePreviewer' };
 
-export const PDFOnly = () => (
-  <FilePreviewer
-    files={[{ url: PDF1_URL, rotate: 0 }]}
-    onFilesChange={action('onFilesChange')}
-  />
-);
+export const PDFOnly = () => {
+  const [files, setFiles] = useState([{ url: PDF1_URL, rotate: 0 }]);
 
-export const PDFRotated = () => (
-  <FilePreviewer
-    files={[{ url: PDF1_URL, rotate: 90 }]}
-    onFilesChange={action('onFilesChange')}
-  />
-);
+  return <FilePreviewer files={files} onFilesChange={setFiles} />;
+};
 
-export const PDFScaled = () => (
-  <FilePreviewer
-    files={[{ url: PDF1_URL, rotate: 0, scale: 1.25 }]}
-    onFilesChange={action('onFilesChange')}
-  />
-);
+export const PDFRotated = () => {
+  const [files, setFiles] = useState([{ url: PDF1_URL, rotate: 90 }]);
 
-export const imageOnly = () => (
-  <FilePreviewer files={[{ url: IMAGE1_URL, rotate: 0 }]} />
-);
+  return <FilePreviewer files={files} onFilesChange={setFiles} />;
+};
 
-export const imageRotated = () => (
-  <FilePreviewer
-    files={[{ url: IMAGE1_URL, rotate: 90 }]}
-    onFilesChange={action('onFilesChange')}
-  />
-);
+export const PDFScaled = () => {
+  const [files, setFiles] = useState([
+    { url: PDF1_URL, rotate: 0, scale: 1.25 },
+  ]);
 
-export const imageScaled = () => (
-  <FilePreviewer
-    files={[{ url: IMAGE1_URL, rotate: 0, scale: 1.25 }]}
-    onFilesChange={action('onFilesChange')}
-  />
-);
+  return <FilePreviewer files={files} onFilesChange={setFiles} />;
+};
 
-export const imageAndPDF = () => (
-  <FilePreviewer
-    files={[
-      { url: PDF1_URL, rotate: 0 },
-      { url: IMAGE1_URL, rotate: 0 },
-    ]}
-    onFilesChange={action('onFilesChange')}
-  />
-);
+export const imageOnly = () => {
+  const [files, setFiles] = useState([{ url: IMAGE1_URL, rotate: 0 }]);
+
+  return <FilePreviewer files={files} onFilesChange={setFiles} />;
+};
+
+export const imageRotated = () => {
+  const [files, setFiles] = useState([{ url: IMAGE1_URL, rotate: 90 }]);
+
+  return <FilePreviewer files={files} onFilesChange={setFiles} />;
+};
+
+export const imageScaled = () => {
+  const [files, setFiles] = useState([
+    { url: IMAGE1_URL, rotate: 0, scale: 1.25 },
+  ]);
+
+  return <FilePreviewer files={files} onFilesChange={setFiles} />;
+};
+
+export const imageAndPDF = () => {
+  const [files, setFiles] = useState([
+    { url: PDF1_URL, rotate: 0 },
+    { url: IMAGE1_URL, rotate: 0 },
+  ]);
+
+  return <FilePreviewer files={files} onFilesChange={setFiles} />;
+};
