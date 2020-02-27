@@ -1,7 +1,7 @@
 {
   "name": "react-file-previewer",
   "version": "0.1.0",
-  "main": "src/FilePreviewer.js",
+  "main": "src/index.js",
   "repository": "git@github.com:vendorpay/file-previewer.git",
   "author": "yolo<rec@weareyolo.com>",
   "license": "MIT",
