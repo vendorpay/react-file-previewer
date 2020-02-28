@@ -30,9 +30,9 @@ const PDFViewer = ({
     // Show all pages at once.
     return (
       <Document
-        file={file.url}
         rotate={file.rotate}
         onLoadSuccess={({ numPages }) => onTotalPages(numPages)}
+        file={file.url || `data:${file.mimeType};base64,${file.data}`}
       >
         {getPDFPage(totalPages)}
       </Document>
@@ -42,9 +42,9 @@ const PDFViewer = ({
   // Displays a single page at a time.
   return (
     <Document
-      file={file.url}
       rotate={file.rotate}
       onLoadSuccess={({ numPages }) => onTotalPages(numPages)}
+      file={file.url || `data:${file.mimeType};base64,${file.data}`}
     >
       <div style={styles.pdfPage}>
         <Page pageNumber={currentPage} scale={file.scale || 1} />

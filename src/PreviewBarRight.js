@@ -5,13 +5,13 @@ import RotateRight from 'mdi-material-ui/RotateRight';
 import styles from './styles';
 import Button from './Button';
 
-const PreviewBarRight = ({ onRotate }) => (
-  <div style={styles.previewBarRight} onClick={onRotate}>
-    <Button>
+const PreviewBarRight = ({ onRotate, onDownload }) => (
+  <div style={styles.previewBarRight}>
+    <Button onClick={onRotate}>
       <RotateRight />
     </Button>
 
-    <Button>
+    <Button onClick={onDownload}>
       <Download />
     </Button>
   </div>

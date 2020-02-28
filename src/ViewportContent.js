@@ -11,7 +11,10 @@ import ImageViewer from './ImageViewer';
  * @param  {Object}
  * @return {Boolean}
  */
-const isPDF = R.o(R.endsWith('.pdf'), R.prop('url'));
+const isPDF = R.either(
+  R.o(R.endsWith('.pdf'), R.propOr('', 'url')),
+  R.propEq('mimeType', 'application/pdf'),
+);
 
 const ViewportContent = ({
   file,

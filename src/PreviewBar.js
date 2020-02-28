@@ -5,11 +5,12 @@ import PreviewBarLeft from './PreviewBarLeft';
 import PreviewBarRight from './PreviewBarRight';
 
 const PreviewBar = ({
-  currentPage,
-  totalPages,
   onPageUp,
-  onPageDown,
   onRotate,
+  totalPages,
+  onPageDown,
+  onDownload,
+  currentPage,
 }) => (
   <div style={styles.previewBar}>
     <PreviewBarLeft
@@ -19,7 +20,7 @@ const PreviewBar = ({
       currentPage={currentPage}
     />
 
-    <PreviewBarRight onRotate={onRotate} />
+    <PreviewBarRight onRotate={onRotate} onDownload={onDownload} />
   </div>
 );
 
