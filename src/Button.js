@@ -5,7 +5,7 @@ const Button = ({ children, onClick, disabled }) => (
     type="button"
     onClick={onClick}
     disabled={disabled}
-    className="vp-preview-button"
+    className="preview-button"
   >
     {children}
   </button>

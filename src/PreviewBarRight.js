@@ -5,7 +5,7 @@ import RotateRight from 'mdi-material-ui/RotateRight';
 import Button from './Button';
 
 const PreviewBarRight = ({ onRotate, onDownload }) => (
-  <div className="vp-preview-bar-left">
+  <div className="preview-bar-left">
     <Button onClick={onRotate}>
       <RotateRight />
     </Button>

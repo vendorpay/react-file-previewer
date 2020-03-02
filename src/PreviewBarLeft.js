@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ChevronUp from 'mdi-material-ui/ChevronUp';
 import ChevronDown from 'mdi-material-ui/ChevronDown';
 
@@ -6,32 +7,39 @@ import Button from './Button';
 import PageCount from './PageCount';
 
 const disabledButton = {
-  opacity: '.5',
-  cursor: 'default',
+    opacity: '.5',
+    cursor: 'default',
 };
 
-const PreviewBarLeft = ({ totalPages, currentPage, onPageUp, onPageDown }) => (
-  <div className="vp-preview-bar-left">
-    {/* Page to go up means going back. */}
-    <Button
-      onClick={onPageUp}
-      disabled={currentPage === 0}
-      style={currentPage === 0 ? disabledButton : {}}
-    >
-      <ChevronUp />
-    </Button>
+const PreviewBarLeft = (props) => (
+    <div className="preview-bar-left">
+        {/* Page to go up means going back. */}
+        <Button
+            onClick={props.onPageUp}
+            disabled={props.currentPage === 0}
+            style={props.currentPage === 0 ? disabledButton : {}}
+        >
+            <ChevronUp/>
+        </Button>
 
-    {/* Page to go down means going next. */}
-    <Button
-      onClick={onPageDown}
-      disabled={currentPage + 1 === totalPages}
-      style={currentPage + 1 === totalPages ? disabledButton : {}}
-    >
-      <ChevronDown />
-    </Button>
+        {/* Page to go down means going next. */}
+        <Button
+            onClick={props.onPageDown}
+            disabled={props.currentPage + 1 === props.totalPages}
+            style={props.currentPage + 1 === props.totalPages ? disabledButton : {}}
+        >
+            <ChevronDown/>
+        </Button>
 
-    <PageCount current={currentPage} total={totalPages} />
-  </div>
+        <PageCount current={props.currentPage} total={props.totalPages}/>
+    </div>
 );
+
+PreviewBarLeft.propTypes = {
+    totalPages: PropTypes.number.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    onPageUp: PropTypes.func.isRequired,
+    onPageDown: PropTypes.func.isRequired
+};
 
 export default PreviewBarLeft;

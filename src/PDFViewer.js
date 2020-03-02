@@ -9,7 +9,7 @@ import { Document, Page } from 'react-pdf';
  * @return {Array}
  */
 const getPDFPage = R.times(index => (
-  <div className="vp-preview-pdf-page">
+  <div className="preview-pdf-page">
     <Page pageIndex={index} />
   </div>
 ));
@@ -42,7 +42,7 @@ const PDFViewer = ({
       onLoadSuccess={({ numPages }) => onTotalPages(numPages)}
       file={file.url || `data:${file.mimeType};base64,${file.data}`}
     >
-      <div className="vp-preview-pdf-page">
+      <div className="preview-pdf-page">
         <Page pageNumber={currentPage + 1} scale={file.scale || 1} />
       </div>
     </Document>

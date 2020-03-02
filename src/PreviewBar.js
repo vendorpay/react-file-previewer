@@ -1,26 +1,39 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import PreviewBarLeft from './PreviewBarLeft';
 import PreviewBarRight from './PreviewBarRight';
 
-const PreviewBar = ({
-  onPageUp,
-  onRotate,
-  totalPages,
-  onPageDown,
-  onDownload,
-  currentPage,
-}) => (
-  <div className="vp-preview-bar">
-    <PreviewBarLeft
-      onPageUp={onPageUp}
-      onPageDown={onPageDown}
-      totalPages={totalPages}
-      currentPage={currentPage}
-    />
+const PreviewBar = (props) => {
+    if (props.hidden) {
+        return null;
+    }
 
-    <PreviewBarRight onRotate={onRotate} onDownload={onDownload} />
-  </div>
-);
+    return (
+        <div className="preview-bar">
+            <PreviewBarLeft
+                onPageUp={props.onPageUp}
+                onPageDown={props.onPageDown}
+                totalPages={props.totalPages}
+                currentPage={props.currentPage}
+            />
+
+            <PreviewBarRight
+                onRotate={props.onRotate}
+                onDownload={props.onDownload}
+            />
+        </div>
+    )
+};
+
+PreviewBar.propTypes = {
+    onPageUp: PropTypes.func.isRequired,
+    onRotate: PropTypes.func.isRequired,
+    onPageDown: PropTypes.func.isRequired,
+    onDownload: PropTypes.func.isRequired,
+    totalPages: PropTypes.number.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    hidden: PropTypes.bool
+};
 
 export default PreviewBar;
