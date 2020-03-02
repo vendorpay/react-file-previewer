@@ -18,6 +18,7 @@ const FilePreviewer = (props) => {
     }
 
     const [totalPages, setTotalPages] = useState(1);
+    const [file, setFile] = useState(props.file);
     const [currentPage, setCurrentPage] = useState(0);
     const viewportRef = useRef(null);
     const contentRef = useRef(null);
@@ -25,28 +26,17 @@ const FilePreviewer = (props) => {
     // Handlers for page turning.
     const handleTotalPages = totalPages => setTotalPages(totalPages);
     const handleCurrentPageChange = currentPage => setCurrentPage(currentPage);
-    const handlePageUp = () =>
-        setCurrentPage(prevState => R.clamp(0, totalPages, prevState - 1));
-    const handlePageDown = () =>
-        setCurrentPage(prevState => R.clamp(0, totalPages, prevState + 1));
+    const handlePageUp = () => setCurrentPage(prevState => R.clamp(0, totalPages, prevState - 1));
+    const handlePageDown = () => setCurrentPage(prevState => R.clamp(0, totalPages, prevState + 1));
 
     // Handlers for rotate and zooming.
-    const handleZoomIn = () => {
-        if (props.onFileChange) props.onFileChange(setZoomIn(props.file));
-        else setZoomIn(props.file);
-    };
-    const handleZoomOut = () => {
-        if (props.onFileChange) props.onFileChange(setZoomOut(props.file));
-        else setZoomOut(props.file);
-    };
-    const handleRotate = () => {
-        if (props.onFileChange) props.onFileChange(setNewRotation(props.file));
-        else setNewRotation(props.file);
-    };
+    const handleZoomIn = () => setFile(setZoomIn(file));
+    const handleZoomOut = () => setFile(setZoomOut(file));
+    const handleRotate = () => setFile(setNewRotation(file));
 
     const handleDownload = () => {
-        const url = props.file.url || `data:${props.file.mimeType};base64,${props.file.data}`;
-        return saveFile(url, props.file.name || 'download.pdf');
+        const url = file.url || `data:${file.mimeType};base64,${file.data}`;
+        return saveFile(url, file.name || 'download.pdf');
     };
 
     const handleFitToScreen = () => {
@@ -56,7 +46,7 @@ const FilePreviewer = (props) => {
             contentRef.current,
         );
 
-        if (props.onFileChange) props.onFileChange(R.assoc('scale', newScale, props.file));
+        setFile(R.assoc('scale', newScale, file));
     };
 
     return (
@@ -78,7 +68,7 @@ const FilePreviewer = (props) => {
             />
 
             <ViewportContent
-                file={props.file}
+                file={file}
                 contentRef={contentRef}
                 totalPages={totalPages}
                 viewportRef={viewportRef}
@@ -106,7 +96,6 @@ FilePreviewer.propTypes = {
         data: PropTypes.string,
         name: PropTypes.string
     }),
-    onFileChange: PropTypes.func,
     onClick: PropTypes.func,
     thumbnail: PropTypes.bool
 };
