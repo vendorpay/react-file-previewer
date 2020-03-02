@@ -2,7 +2,6 @@ import * as R from 'ramda';
 import saveFile from 'file-saver';
 import React, { useState, useRef } from 'react';
 
-import styles from './styles';
 import setZoomIn from './utils/setZoomIn';
 import setZoomOut from './utils/setZoomOut';
 import hasManyFiles from './utils/hasManyFiles';
@@ -35,11 +34,7 @@ const FilePreviewer = ({ files, currentFileIndex = 0, onFilesChange }) => {
   };
 
   const handleRotate = () => {
-    const updatedFiles = R.adjust(
-      currentFileIndex,
-      setNewRotation,
-      files,
-    );
+    const updatedFiles = R.adjust(currentFileIndex, setNewRotation, files);
 
     onFilesChange(updatedFiles);
   };
@@ -70,7 +65,7 @@ const FilePreviewer = ({ files, currentFileIndex = 0, onFilesChange }) => {
   };
 
   const handleDownload = () => {
-    const currentFile = R.nth(currentFileIndex - 1, filesProxy);
+    const currentFile = R.nth(currentFileIndex, files);
 
     const url =
       currentFile.url ||
@@ -81,7 +76,7 @@ const FilePreviewer = ({ files, currentFileIndex = 0, onFilesChange }) => {
 
   // RENDER.
   return (
-    <div style={styles.wrapperStyles}>
+    <div className="vp-preview-wrapper">
       <PreviewBar
         onPageUp={handlePageUp}
         totalPages={totalPages}
@@ -110,10 +105,7 @@ const FilePreviewer = ({ files, currentFileIndex = 0, onFilesChange }) => {
       />
 
       {hasManyFiles(files) && (
-        <FilesController
-          files={files}
-          currentFile={currentFileIndex}
-        />
+        <FilesController files={files} currentFile={currentFileIndex} />
       )}
     </div>
   );

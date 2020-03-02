@@ -2,7 +2,6 @@ import React from 'react';
 import ChevronUp from 'mdi-material-ui/ChevronUp';
 import ChevronDown from 'mdi-material-ui/ChevronDown';
 
-import styles from './styles';
 import Button from './Button';
 import PageCount from './PageCount';
 
@@ -12,7 +11,7 @@ const disabledButton = {
 };
 
 const PreviewBarLeft = ({ totalPages, currentPage, onPageUp, onPageDown }) => (
-  <div style={styles.previewBarLeft}>
+  <div className="vp-preview-bar-left">
     {/* Page to go up means going back. */}
     <Button
       onClick={onPageUp}

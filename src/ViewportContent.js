@@ -1,7 +1,6 @@
 import React from 'react';
 import * as R from 'ramda';
 
-import styles from './styles';
 import PDFViewer from './PDFViewer';
 import ImageViewer from './ImageViewer';
 
@@ -25,8 +24,8 @@ const ViewportContent = ({
   onTotalPages,
   onCurrentPageChange,
 }) => (
-  <div style={styles.content} ref={viewportRef}>
-    <div style={styles.file} ref={contentRef}>
+  <div className="vp-preview-content" ref={viewportRef}>
+    <div className="vp-preview-file" ref={contentRef}>
       {isPDF(file) ? (
         <PDFViewer
           file={file}
@@ -51,9 +50,9 @@ export const ViewportContentDisplayAll = ({
   onTotalPages,
   onCurrentPageChange,
 }) => (
-  <div style={styles.content} ref={viewportRef}>
+  <div className="vp-preview-content" ref={viewportRef}>
     {files.map(file => (
-      <div style={styles.file} ref={contentRef}>
+      <div className="vp-preview-file" ref={contentRef}>
         {isPDF(file) ? (
           <PDFViewer
             file={file}

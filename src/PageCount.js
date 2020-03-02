@@ -1,9 +1,7 @@
 import React from 'react';
 
-import styles from './styles';
-
 const PageCount = ({ current, total }) => (
-  <span style={styles.previewBarLeftPagecount}>
+  <span className="vp-preview-pagecount">
     {current + 1} of {total}
   </span>
 );
