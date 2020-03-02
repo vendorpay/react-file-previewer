@@ -1,12 +1,11 @@
 import * as R from 'ramda';
 import saveFile from 'file-saver';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
 import styles from './styles';
 import setZoomIn from './utils/setZoomIn';
 import setZoomOut from './utils/setZoomOut';
 import hasManyFiles from './utils/hasManyFiles';
-import getTotalFiles from './utils/getTotalFiles';
 import setNewRotation from './utils/setNewRotation';
 import getFitToScreenScale from './utils/getFitToScreenScale';
 
@@ -15,45 +14,16 @@ import ViewportControl from './ViewportControl';
 import ViewportContent from './ViewportContent';
 import FilesController from './FilesController';
 
-const FilePreviewer = ({ files, onFilesChange }) => {
-  // States for multiple files and their manipulation.
-  const [filesProxy, setFilesChangeProxy] = useState(files);
-  const [currentFileIndex, setCurrentFileIndex] = useState(1);
-
-  useEffect(() => {
-    if (R.is(Function, onFilesChange)) {
-      onFilesChange(filesProxy);
-    }
-
-    return;
-  }, [filesProxy]);
-
-  // Get the total pages amount.
-  const totalFiles = getTotalFiles(files);
-
-  // Get a function to range the `currentPage` possible values.
-  const currentFileClamp = R.clamp(1, totalFiles);
-
-  // States for multiple-pages documents.
+const FilePreviewer = ({ files, currentFileIndex = 0, onFilesChange }) => {
   const [totalPages, setTotalPages] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
-
-  // HANDLERS.
-
-  const handlePreviousFile = () => {
-    setCurrentFileIndex(prevState => currentFileClamp(prevState - 1));
-  };
-
-  const handleNextFile = () => {
-    setCurrentFileIndex(prevState => currentFileClamp(prevState + 1));
-  };
+  const [currentPage, setCurrentPage] = useState(0);
 
   const handlePageUp = () => {
-    setCurrentPage(prevState => R.clamp(1, totalPages, prevState - 1));
+    setCurrentPage(prevState => R.clamp(0, totalPages, prevState - 1));
   };
 
   const handlePageDown = () => {
-    setCurrentPage(prevState => R.clamp(1, totalPages, prevState + 1));
+    setCurrentPage(prevState => R.clamp(0, totalPages, prevState + 1));
   };
 
   const handleTotalPages = totalPages => {
@@ -66,22 +36,22 @@ const FilePreviewer = ({ files, onFilesChange }) => {
 
   const handleRotate = () => {
     const updatedFiles = R.adjust(
-      currentFileIndex - 1,
+      currentFileIndex,
       setNewRotation,
-      filesProxy,
+      files,
     );
 
-    setFilesChangeProxy(updatedFiles);
+    onFilesChange(updatedFiles);
   };
 
   const handleZoomIn = () => {
-    const updatedFiles = R.adjust(currentFileIndex - 1, setZoomIn, filesProxy);
-    setFilesChangeProxy(updatedFiles);
+    const updatedFiles = R.adjust(currentFileIndex, setZoomIn, files);
+    onFilesChange(updatedFiles);
   };
 
   const handleZoomOut = () => {
-    const updatedFiles = R.adjust(currentFileIndex - 1, setZoomOut, filesProxy);
-    setFilesChangeProxy(updatedFiles);
+    const updatedFiles = R.adjust(currentFileIndex, setZoomOut, files);
+    onFilesChange(updatedFiles);
   };
 
   const viewportRef = useRef(null);
@@ -91,12 +61,12 @@ const FilePreviewer = ({ files, onFilesChange }) => {
     const fts = getFitToScreenScale(viewportRef.current, contentRef.current);
 
     const updatedFiles = R.adjust(
-      currentFileIndex - 1,
+      currentFileIndex,
       R.assoc('scale', fts),
-      filesProxy,
+      files,
     );
 
-    setFilesChangeProxy(updatedFiles);
+    onFilesChange(updatedFiles);
   };
 
   const handleDownload = () => {
@@ -110,7 +80,6 @@ const FilePreviewer = ({ files, onFilesChange }) => {
   };
 
   // RENDER.
-
   return (
     <div style={styles.wrapperStyles}>
       <PreviewBar
@@ -129,23 +98,21 @@ const FilePreviewer = ({ files, onFilesChange }) => {
         currentPage={currentPage}
         onTotalPages={handleTotalPages}
         onCurrentPageChange={handleCurrentPageChange}
-        file={R.nth(currentFileIndex - 1, filesProxy)}
+        file={R.nth(currentFileIndex, files)}
       />
 
       <ViewportControl
-        files={filesProxy}
+        files={files}
         onZoomIn={handleZoomIn}
         onZoomOut={handleZoomOut}
         currentPage={currentFileIndex}
         onFitToScreen={handleFitToScreen}
       />
 
-      {hasManyFiles(filesProxy) && (
+      {hasManyFiles(files) && (
         <FilesController
-          files={filesProxy}
-          onNextFile={handleNextFile}
-          currentPage={currentFileIndex}
-          onPreviousFile={handlePreviousFile}
+          files={files}
+          currentFile={currentFileIndex}
         />
       )}
     </div>

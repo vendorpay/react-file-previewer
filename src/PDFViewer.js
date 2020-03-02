@@ -21,8 +21,6 @@ const PDFViewer = ({
   totalPages,
   currentPage,
   onTotalPages,
-  onCurrentPageChange,
-
   displayAll = false,
 }) => {
   // Check if the viewer is set to display all pages and scroll.
@@ -47,7 +45,7 @@ const PDFViewer = ({
       file={file.url || `data:${file.mimeType};base64,${file.data}`}
     >
       <div style={styles.pdfPage}>
-        <Page pageNumber={currentPage} scale={file.scale || 1} />
+        <Page pageNumber={currentPage + 1} scale={file.scale || 1} />
       </div>
     </Document>
   );
