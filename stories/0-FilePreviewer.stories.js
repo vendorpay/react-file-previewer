@@ -12,50 +12,37 @@ const IMAGE1_URL =
 export default { title: 'FilePreviewer' };
 
 export const PDFOnly = () => {
-  const [files, setFiles] = useState([{ url: PDF1_URL, rotate: 0 }]);
+  const [file, setFile] = useState({ url: PDF1_URL, rotate: 0 });
 
-  return <FilePreviewer files={files} onFilesChange={setFiles} />;
+  return <FilePreviewer file={file} onFileChange={setFile} />;
 };
 
 export const PDFRotated = () => {
-  const [files, setFiles] = useState([{ url: PDF1_URL, rotate: 90 }]);
+  const [file, setFile] = useState({ url: PDF1_URL, rotate: 90 });
 
-  return <FilePreviewer files={files} onFilesChange={setFiles} />;
+  return <FilePreviewer file={file} onFileChange={setFile} />;
 };
 
 export const PDFScaled = () => {
-  const [files, setFiles] = useState([
-    { url: PDF1_URL, rotate: 0, scale: 1.25 },
-  ]);
+  const [file, setFile] = useState({ url: PDF1_URL, rotate: 0, scale: 1.25 });
 
-  return <FilePreviewer files={files} onFilesChange={setFiles} />;
+  return <FilePreviewer file={file} onFileChange={setFile} />;
 };
 
 export const imageOnly = () => {
-  const [files, setFiles] = useState([{ url: IMAGE1_URL, rotate: 0 }]);
+  const [file, setFile] = useState({ url: IMAGE1_URL, rotate: 0 });
 
-  return <FilePreviewer files={files} onFilesChange={setFiles} />;
+  return <FilePreviewer file={file} onFileChange={setFile} />;
 };
 
 export const imageRotated = () => {
-  const [files, setFiles] = useState([{ url: IMAGE1_URL, rotate: 90 }]);
+  const [file, setFile] = useState({ url: IMAGE1_URL, rotate: 90 });
 
-  return <FilePreviewer files={files} onFilesChange={setFiles} />;
+  return <FilePreviewer file={file} onFileChange={setFile} />;
 };
 
 export const imageScaled = () => {
-  const [files, setFiles] = useState([
-    { url: IMAGE1_URL, rotate: 0, scale: 1.25 },
-  ]);
+  const [file, setFile] = useState({ url: IMAGE1_URL, rotate: 0, scale: 1.25 });
 
-  return <FilePreviewer files={files} onFilesChange={setFiles} />;
-};
-
-export const imageAndPDF = () => {
-  const [files, setFiles] = useState([
-    { url: PDF1_URL, rotate: 0 },
-    { url: IMAGE1_URL, rotate: 0 },
-  ]);
-
-  return <FilePreviewer files={files} onFilesChange={setFiles} />;
+  return <FilePreviewer file={file} onFileChange={setFile} />;
 };
