@@ -1,13 +1,17 @@
 {
   "name": "react-file-previewer",
   "version": "0.1.0",
-  "main": "src/index.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
   "repository": "git@github.com:vendorpay/file-previewer.git",
   "author": "yolo<rec@weareyolo.com>",
   "license": "MIT",
   "scripts": {
     "test": "jest",
     "lint": "echo 'todo'",
+    "prepublish": "npm run build",
+    "build": "rimraf ./dist && rollup -c",
+    "watch": "rimraf ./dist && rollup -c -w",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
@@ -45,6 +49,11 @@
     "prettier": "^1.19.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-test-renderer": "^16.12.0"
+    "react-test-renderer": "^16.12.0",
+    "rimraf": "^3.0.2",
+    "rollup": "^1.32.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-bundle-size": "^1.0.3",
+    "rollup-plugin-copy": "^3.3.0"
   }
 }
