@@ -1,13 +1,11 @@
 import React from 'react';
 
-import styles from './styles';
-
-const Button = ({ children, onClick, disabled, style = {} }) => (
+const Button = ({ children, onClick, disabled }) => (
   <button
     type="button"
     onClick={onClick}
     disabled={disabled}
-    style={{ ...styles.button, ...style }}
+    className="vp-preview-button"
   >
     {children}
   </button>

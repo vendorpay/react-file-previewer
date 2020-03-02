@@ -1,6 +1,5 @@
 import React from 'react';
 
-import styles from './styles';
 import PreviewBarLeft from './PreviewBarLeft';
 import PreviewBarRight from './PreviewBarRight';
 
@@ -12,7 +11,7 @@ const PreviewBar = ({
   onDownload,
   currentPage,
 }) => (
-  <div style={styles.previewBar}>
+  <div className="vp-preview-bar">
     <PreviewBarLeft
       onPageUp={onPageUp}
       onPageDown={onPageDown}

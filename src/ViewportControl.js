@@ -4,19 +4,18 @@ import MinusBox from 'mdi-material-ui/MinusBox';
 import ArrowExpandHorizontal from 'mdi-material-ui/ArrowExpandHorizontal';
 
 import Button from './Button';
-import styles from './styles';
 
 const ViewportControl = ({ onZoomIn, onZoomOut, onFitToScreen }) => (
-  <div style={styles.icons}>
+  <div className="vp-preview-icons">
     <Button onClick={onZoomIn}>
       <PlusBox />
     </Button>
 
-    <Button onClick={onZoomOut} style={styles.iconsButton}>
+    <Button onClick={onZoomOut} className="vp-preview-icons">
       <MinusBox />
     </Button>
 
-    <Button onClick={onFitToScreen} style={styles.iconsButton}>
+    <Button onClick={onFitToScreen} className="vp-preview-icons">
       <ArrowExpandHorizontal />
     </Button>
   </div>
