@@ -41,32 +41,4 @@ const ViewportContent = ({
   </div>
 );
 
-export const ViewportContentDisplayAll = ({
-  files = [],
-  contentRef,
-  totalPages,
-  viewportRef,
-  currentPage,
-  onTotalPages,
-  onCurrentPageChange,
-}) => (
-  <div className="vp-preview-content" ref={viewportRef}>
-    {files.map(file => (
-      <div className="vp-preview-file" ref={contentRef}>
-        {isPDF(file) ? (
-          <PDFViewer
-            file={file}
-            totalPages={totalPages}
-            currentPage={currentPage}
-            onTotalPages={onTotalPages}
-            onCurrentPageChange={onCurrentPageChange}
-          />
-        ) : (
-          <ImageViewer file={file} />
-        )}
-      </div>
-    ))}
-  </div>
-);
-
 export default ViewportContent;
