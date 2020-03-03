@@ -25,7 +25,6 @@ const FilePreviewer = (props) => {
 
     useEffect(() => {
         let f = props.file;
-        f.url = "https://cors-anywhere.herokuapp.com/http://africau.edu/images/default/sample.pdf";
         if (props.file instanceof File) {
             f.url = URL.createObjectURL(props.file);
         }
