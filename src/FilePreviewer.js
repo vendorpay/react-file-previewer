@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import saveFile from 'file-saver';
 import PropTypes from 'prop-types';
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 import setZoomIn from './utils/setZoomIn';
 import setZoomOut from './utils/setZoomOut';
@@ -22,6 +22,16 @@ const FilePreviewer = (props) => {
     const [currentPage, setCurrentPage] = useState(0);
     const viewportRef = useRef(null);
     const contentRef = useRef(null);
+
+    useEffect(() => {
+        if (props.file instanceof File) {
+            setFile({
+                url: URL.createObjectURL(props.file)
+            });
+        } else {
+            setFile(props.file);
+        }
+    }, [props.file]);
 
     // Handlers for page turning.
     const handleTotalPages = totalPages => setTotalPages(totalPages);
@@ -56,7 +66,8 @@ const FilePreviewer = (props) => {
              style={{
                  height: props.height,
                  width: props.width
-             }}>
+             }}
+        >
             <PreviewBar
                 onPageUp={handlePageUp}
                 totalPages={totalPages}
@@ -97,7 +108,14 @@ FilePreviewer.propTypes = {
         name: PropTypes.string
     }),
     onClick: PropTypes.func,
-    thumbnail: PropTypes.bool
+    thumbnail: PropTypes.bool,
+    height: PropTypes.string,
+    width: PropTypes.string
+};
+
+FilePreviewer.defaultProps = {
+    height: '100%',
+    width: '100%'
 };
 
 export default FilePreviewer;

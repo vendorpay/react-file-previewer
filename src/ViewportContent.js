@@ -19,7 +19,7 @@ const isPDF = R.either(
 
 const ViewportContent = (props) => {
     return (
-        <div className={classnames("preview-content", props.thumbnail ? 'media-thumbnail' : '')}
+        <div className={classnames(props.thumbnail ? 'media-thumbnail' : 'preview-content')}
              ref={props.viewportRef}>
             <div className="preview-file" ref={props.contentRef}>
                 {isPDF(props.file) ? (
