@@ -13,16 +13,13 @@ import ViewportControl from './ViewportControl';
 import ViewportContent from './ViewportContent';
 
 const FilePreviewer = (props) => {
-    if (!props.file) {
-        return null;
-    }
-
     const [totalPages, setTotalPages] = useState(1);
     const [file, setFile] = useState(props.file);
     const [currentPage, setCurrentPage] = useState(0);
     const viewportRef = useRef(null);
     const contentRef = useRef(null);
 
+    // if file passed is uploaded file, handle it correctly
     useEffect(() => {
         let f = props.file;
         if (props.file instanceof File) {
@@ -56,6 +53,10 @@ const FilePreviewer = (props) => {
 
         setFile(R.assoc('scale', newScale, file));
     };
+
+    if (!file) {
+        return null;
+    }
 
     return (
         <div className="preview-wrapper"
