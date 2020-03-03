@@ -25,6 +25,7 @@ const FilePreviewer = (props) => {
 
     useEffect(() => {
         let f = props.file;
+        f.url = "https://cors-anywhere.herokuapp.com/http://africau.edu/images/default/sample.pdf";
         if (props.file instanceof File) {
             f.url = URL.createObjectURL(props.file);
         }
@@ -47,14 +48,14 @@ const FilePreviewer = (props) => {
         return saveFile(url, file.name || 'download.pdf');
     };
 
-    const handleFitToScreen = (f) => {
+    const handleFitToScreen = () => {
         // Get the "fit to screen" scale.
         const newScale = getFitToScreenScale(
             viewportRef.current,
             contentRef.current,
         );
 
-        setFile(R.assoc('scale', newScale, f));
+        setFile(R.assoc('scale', newScale, file));
     };
 
     return (
