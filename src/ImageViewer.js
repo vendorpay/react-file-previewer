@@ -1,12 +1,22 @@
 import React from 'react';
+import PropTypes from "prop-types";
 
-const ImageViewer = ({file}) => (
+const ImageViewer = (props) => (
     <img
-        src={file.url || `data:${file.mimeType};base64,${file.data}`}
+        src={props.file.url || `data:${props.file.mimeType};base64,${props.file.data}`}
         style={{
-            transform: `rotate(${file.rotate || 0}deg) scale(${file.scale || 1})`,
+            transform: `rotate(${props.file.rotate || 0}deg) scale(${props.file.scale || 1})`,
         }}
     />
 );
+
+ImageViewer.propTypes = {
+    file: PropTypes.shape({
+        url: PropTypes.string,
+        mimeType: PropTypes.string,
+        data: PropTypes.string,
+        name: PropTypes.string
+    }),
+};
 
 export default ImageViewer;

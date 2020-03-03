@@ -24,13 +24,11 @@ const FilePreviewer = (props) => {
     const contentRef = useRef(null);
 
     useEffect(() => {
+        let f = props.file;
         if (props.file instanceof File) {
-            setFile({
-                url: URL.createObjectURL(props.file)
-            });
-        } else {
-            setFile(props.file);
+            f.url = URL.createObjectURL(props.file);
         }
+        setFile(f);
     }, [props.file]);
 
     // Handlers for page turning.
@@ -49,14 +47,14 @@ const FilePreviewer = (props) => {
         return saveFile(url, file.name || 'download.pdf');
     };
 
-    const handleFitToScreen = () => {
+    const handleFitToScreen = (f) => {
         // Get the "fit to screen" scale.
         const newScale = getFitToScreenScale(
             viewportRef.current,
             contentRef.current,
         );
 
-        setFile(R.assoc('scale', newScale, file));
+        setFile(R.assoc('scale', newScale, f));
     };
 
     return (

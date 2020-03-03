@@ -104,3 +104,12 @@
     background-position: center;
     overflow: hidden;
 }
+
+.media-thumbnail img {
+    height: 100%;
+    width: 100%;
+}
+
+.media-thumbnail .react-pdf__Page {
+    padding: 0;
+}
