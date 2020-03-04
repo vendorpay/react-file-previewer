@@ -26,6 +26,8 @@ const FilePreviewer = (props) => {
             f.url = URL.createObjectURL(props.file);
         }
         setFile(f);
+        setCurrentPage(0);
+        setTotalPages(1);
     }, [props.file]);
 
     // Handlers for page turning.

@@ -1,16 +1,23 @@
 {
   "name": "react-file-previewer",
-  "version": "0.1.0",
+  "version": "0.1.6",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
-  "repository": "git@github.com:vendorpay/file-previewer.git",
+  "repository": "git@github.com:vendorpay/react-file-previewer.git",
   "author": "Jonathan Stevens<jonathanstevens89@gmail.com>",
+  "keywords": [
+    "pdf viewer",
+    "file viewer",
+    "image viewer",
+    "react-pdf"
+  ],
   "license": "MIT",
   "scripts": {
     "test": "jest",
     "lint": "echo 'todo'",
     "prepublish": "npm run build",
     "build": "rimraf ./dist && rollup -c",
+    "publish-npm": "npm run build && npm publish",
     "watch": "rimraf ./dist && rollup -c -w",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
