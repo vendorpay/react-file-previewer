@@ -38,3 +38,13 @@ export const App = () => (
     </div>
 );
 ```
+
+## Props
+
+| Prop name | Type     | Description |
+|:----------|:---------|:------------|
+| file      | object   | Has properties: `url`, `data`, `mimeType`, `name`. Url can be used by itself. If base64 file, both `data` and `mimeType` must be provided. `name` is simply for a filename on download. |
+| onClick   | function | Event handler for when viewer is clicked |
+| thumbnail | bool     | If 'true', viewer won't display the controls and will fill to size for display as a thumbnail |
+| height    | string   | Height of the viewer passed to the css styles |
+| width     | string   | Width of the viewer passed to the css styles |

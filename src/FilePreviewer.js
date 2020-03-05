@@ -19,12 +19,15 @@ const FilePreviewer = (props) => {
     const viewportRef = useRef(null);
     const contentRef = useRef(null);
 
-    // if file passed is uploaded file, handle it correctly
     useEffect(() => {
         let f = props.file;
-        if (props.file instanceof File) {
+
+        // if file passed is uploaded file, handle it correctly
+        if (props.file && props.file instanceof File) {
             f.url = URL.createObjectURL(props.file);
+            f.mimeType = props.file.type;
         }
+
         setFile(f);
         setCurrentPage(0);
         setTotalPages(1);
