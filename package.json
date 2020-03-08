@@ -38,6 +38,7 @@
     "file-saver": "^2.0.2",
     "mdi-material-ui": "^6.12.0",
     "ramda": "^0.27.0",
+    "react-intersection-observer": "^8.26.1",
     "react-pdf": "^4.1.0"
   },
   "devDependencies": {
@@ -49,13 +50,13 @@
     "@storybook/addons": "^5.3.13",
     "@storybook/react": "^5.3.13",
     "babel-jest": "^25.1.0",
-    "classnames": "^2.2.6",
-    "prop-types": "^15.7.2",
     "babel-loader": "^8.0.6",
+    "classnames": "^2.2.6",
     "husky": "^4.2.3",
     "jest": "^25.1.0",
     "lint-staged": "^10.0.7",
     "prettier": "^1.19.1",
+    "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-test-renderer": "^16.12.0",
