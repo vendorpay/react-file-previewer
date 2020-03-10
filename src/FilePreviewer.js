@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import saveFile from 'file-saver';
 import PropTypes from 'prop-types';
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import setZoomIn from './utils/setZoomIn';
 import setZoomOut from './utils/setZoomOut';
@@ -12,114 +12,137 @@ import PreviewBar from './PreviewBar';
 import ViewportControl from './ViewportControl';
 import ViewportContent from './ViewportContent';
 
-const FilePreviewer = (props) => {
-    const [totalPages, setTotalPages] = useState(1);
-    const [file, setFile] = useState(props.file);
-    const [currentPage, setCurrentPage] = useState(0);
-    const viewportRef = useRef(null);
-    const contentRef = useRef(null);
+const FilePreviewer = props => {
+  const [totalPages, setTotalPages] = useState(1);
+  const [file, setFile] = useState(props.file);
+  const [currentPage, setCurrentPage] = useState(0);
+  const viewportRef = useRef(null);
+  const contentRef = useRef(null);
 
-    useEffect(() => {
-        let f = props.file;
+  useEffect(() => {
+    let f = props.file;
 
-        // if file passed is uploaded file, handle it correctly
-        if (props.file && props.file instanceof File) {
-            f.url = URL.createObjectURL(props.file);
-            f.mimeType = props.file.type;
-        }
-
-        setFile(f);
-        setCurrentPage(0);
-        setTotalPages(1);
-    }, [props.file]);
-
-    // Handlers for page turning.
-    const handleTotalPages = totalPages => setTotalPages(totalPages);
-    const handleCurrentPageChange = currentPage => setCurrentPage(currentPage);
-    const handlePageUp = () => setCurrentPage(prevState => R.clamp(0, totalPages, prevState - 1));
-    const handlePageDown = () => setCurrentPage(prevState => R.clamp(0, totalPages, prevState + 1));
-
-    // Handlers for rotate and zooming.
-    const handleZoomIn = () => setFile(setZoomIn(file));
-    const handleZoomOut = () => setFile(setZoomOut(file));
-    const handleRotate = () => setFile(setNewRotation(file));
-
-    const handleDownload = () => {
-        const url = file.url || `data:${file.mimeType};base64,${file.data}`;
-        return saveFile(url, file.name || 'download.pdf');
-    };
-
-    const handleFitToScreen = () => {
-        // Get the "fit to screen" scale.
-        const newScale = getFitToScreenScale(
-            viewportRef.current,
-            contentRef.current,
-        );
-
-        setFile(R.assoc('scale', newScale, file));
-    };
-
-    if (!file) {
-        return null;
+    // if file passed is uploaded file, handle it correctly
+    if (props.file && props.file instanceof File) {
+      f.url = URL.createObjectURL(props.file);
+      f.mimeType = props.file.type;
     }
 
-    return (
-        <div className="preview-wrapper"
-             id={props.id}
-             onClick={props.onClick}
-             style={{
-                 height: props.height,
-                 width: props.width
-             }}
-        >
-            <PreviewBar
-                onPageUp={handlePageUp}
-                totalPages={totalPages}
-                onRotate={handleRotate}
-                currentPage={currentPage}
-                onDownload={handleDownload}
-                onPageDown={handlePageDown}
-                hidden={props.thumbnail}
-            />
+    setFile(f);
+    setCurrentPage(0);
+    setTotalPages(1);
+  }, [props.file]);
 
-            <ViewportContent
-                file={file}
-                contentRef={contentRef}
-                totalPages={totalPages}
-                viewportRef={viewportRef}
-                currentPage={currentPage}
-                onTotalPages={handleTotalPages}
-                onCurrentPageChange={handleCurrentPageChange}
-                thumbnail={props.thumbnail}
-            />
+  // Handlers for page turning.
+  const handleTotalPages = totalPages => setTotalPages(totalPages);
+  const handleCurrentPageChange = currentPage => setCurrentPage(currentPage);
 
-            <ViewportControl
-                onZoomIn={handleZoomIn}
-                onZoomOut={handleZoomOut}
-                onFitToScreen={handleFitToScreen}
-                hidden={props.thumbnail}
-            />
-        </div>
+  // Scroll to the pervious page and update the index.
+  const handlePageUp = () => {
+    const previousIndex = R.clamp(0, totalPages, currentPage - 1);
+    setCurrentPage(previousIndex);
+
+    const previousPage = document.querySelector(
+      `div[data-pdfpage="${previousIndex}"]`,
     );
+
+    // Scroll the viewport to the page position.
+    viewportRef.current.scrollTop = previousPage.offsetTop - 10;
+  };
+
+  // Scroll to the next page and update the index.
+  const handlePageDown = () => {
+    const nextIndex = R.clamp(0, totalPages, currentPage + 1);
+    setCurrentPage(nextIndex);
+
+    const nextPage = document.querySelector(`div[data-pdfpage="${nextIndex}"]`);
+
+    // Scroll the viewport to the page position.
+    viewportRef.current.scrollTop = nextPage.offsetTop - 10;
+  };
+
+  // Handlers for rotate and zooming.
+  const handleZoomIn = () => setFile(setZoomIn(file));
+  const handleZoomOut = () => setFile(setZoomOut(file));
+  const handleRotate = () => setFile(setNewRotation(file));
+
+  const handleDownload = () => {
+    const url = file.url || `data:${file.mimeType};base64,${file.data}`;
+    return saveFile(url, file.name || 'download.pdf');
+  };
+
+  const handleFitToScreen = () => {
+    // Get the "fit to screen" scale.
+    const newScale = getFitToScreenScale(
+      viewportRef.current,
+      contentRef.current,
+    );
+
+    setFile(R.assoc('scale', newScale, file));
+  };
+
+  if (!file) {
+    return null;
+  }
+
+  return (
+    <div
+      id={props.id}
+      onClick={props.onClick}
+      className="preview-wrapper"
+      style={{
+        height: props.height,
+        width: props.width,
+      }}
+    >
+      <PreviewBar
+        onPageUp={handlePageUp}
+        totalPages={totalPages}
+        onRotate={handleRotate}
+        hidden={props.thumbnail}
+        currentPage={currentPage}
+        onDownload={handleDownload}
+        onPageDown={handlePageDown}
+      />
+
+      <ViewportContent
+        file={file}
+        contentRef={contentRef}
+        totalPages={totalPages}
+        viewportRef={viewportRef}
+        currentPage={currentPage}
+        thumbnail={props.thumbnail}
+        onTotalPages={handleTotalPages}
+        onCurrentPageChange={handleCurrentPageChange}
+      />
+
+      <ViewportControl
+        onZoomIn={handleZoomIn}
+        hidden={props.thumbnail}
+        onZoomOut={handleZoomOut}
+        onFitToScreen={handleFitToScreen}
+      />
+    </div>
+  );
 };
 
 FilePreviewer.propTypes = {
-    id: PropTypes.any,
-    file: PropTypes.shape({
-        url: PropTypes.string,
-        mimeType: PropTypes.string,
-        data: PropTypes.string,
-        name: PropTypes.string
-    }),
-    onClick: PropTypes.func,
-    thumbnail: PropTypes.bool,
-    height: PropTypes.string,
-    width: PropTypes.string
+  id: PropTypes.any,
+  file: PropTypes.shape({
+    url: PropTypes.string,
+    mimeType: PropTypes.string,
+    data: PropTypes.string,
+    name: PropTypes.string,
+  }),
+  onClick: PropTypes.func,
+  thumbnail: PropTypes.bool,
+  height: PropTypes.string,
+  width: PropTypes.string,
 };
 
 FilePreviewer.defaultProps = {
-    height: '100%',
-    width: '100%'
+  height: '100%',
+  width: '100%',
 };
 
 export default FilePreviewer;

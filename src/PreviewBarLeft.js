@@ -6,40 +6,34 @@ import ChevronDown from 'mdi-material-ui/ChevronDown';
 import Button from './Button';
 import PageCount from './PageCount';
 
-const disabledButton = {
-    opacity: '.5',
-    cursor: 'default',
+const PreviewBarLeft = props => {
+  console.log({ currentPage: props.currentPage, totalPages: props.totalPages });
+
+  return (
+    <div className="preview-bar-left">
+      {/* Page to go up means going back. */}
+      <Button onClick={props.onPageUp} disabled={props.currentPage === 0}>
+        <ChevronUp />
+      </Button>
+
+      {/* Page to go down means going next. */}
+      <Button
+        onClick={props.onPageDown}
+        disabled={props.currentPage + 1 === props.totalPages}
+      >
+        <ChevronDown />
+      </Button>
+
+      <PageCount current={props.currentPage} total={props.totalPages} />
+    </div>
+  );
 };
 
-const PreviewBarLeft = (props) => (
-    <div className="preview-bar-left">
-        {/* Page to go up means going back. */}
-        <Button
-            onClick={props.onPageUp}
-            disabled={props.currentPage === 0}
-            style={props.currentPage === 0 ? disabledButton : {}}
-        >
-            <ChevronUp/>
-        </Button>
-
-        {/* Page to go down means going next. */}
-        <Button
-            onClick={props.onPageDown}
-            disabled={props.currentPage + 1 === props.totalPages}
-            style={props.currentPage + 1 === props.totalPages ? disabledButton : {}}
-        >
-            <ChevronDown/>
-        </Button>
-
-        <PageCount current={props.currentPage} total={props.totalPages}/>
-    </div>
-);
-
 PreviewBarLeft.propTypes = {
-    totalPages: PropTypes.number.isRequired,
-    currentPage: PropTypes.number.isRequired,
-    onPageUp: PropTypes.func.isRequired,
-    onPageDown: PropTypes.func.isRequired
+  totalPages: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  onPageUp: PropTypes.func.isRequired,
+  onPageDown: PropTypes.func.isRequired,
 };
 
 export default PreviewBarLeft;
