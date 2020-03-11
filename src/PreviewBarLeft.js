@@ -7,8 +7,6 @@ import Button from './Button';
 import PageCount from './PageCount';
 
 const PreviewBarLeft = props => {
-  console.log({ currentPage: props.currentPage, totalPages: props.totalPages });
-
   return (
     <div className="preview-bar-left">
       {/* Page to go up means going back. */}

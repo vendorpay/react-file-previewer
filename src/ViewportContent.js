@@ -17,25 +17,27 @@ const isPDF = R.either(
   R.propEq('mimeType', 'application/pdf'),
 );
 
-const ViewportContent = props => (
+const ViewportContent = ({
+  file,
+  thumbnail,
+  contentRef,
+  viewportRef,
+  onLoadSuccess,
+  onPageChange,
+}) => (
   <div
-    ref={props.viewportRef}
-    className={classnames(
-      props.thumbnail ? 'media-thumbnail' : 'preview-content',
-    )}
+    ref={viewportRef}
+    className={classnames(thumbnail ? 'media-thumbnail' : 'preview-content')}
   >
-    <div className="preview-file" ref={props.contentRef}>
-      {isPDF(props.file) ? (
+    <div className="preview-file" ref={contentRef}>
+      {isPDF(file) ? (
         <PDFViewer
-          file={props.file}
-          totalPages={props.totalPages}
-          currentPage={props.currentPage}
-          onTotalPages={props.onTotalPages}
-          scrollableElement={props.contentRef}
-          onCurrentPageChange={props.onCurrentPageChange}
+          file={file}
+          onPageChange={onPageChange}
+          onLoadSuccess={onLoadSuccess}
         />
       ) : (
-        <ImageViewer file={props.file} />
+        <ImageViewer file={file} onLoadSuccess={onLoadSuccess} />
       )}
     </div>
   </div>
@@ -48,13 +50,11 @@ ViewportContent.propTypes = {
     data: PropTypes.string,
     name: PropTypes.string,
   }),
+  thumbnail: PropTypes.bool,
   contentRef: PropTypes.any,
   viewportRef: PropTypes.any,
-  totalPages: PropTypes.number.isRequired,
-  currentPage: PropTypes.number.isRequired,
-  onTotalPages: PropTypes.func.isRequired,
-  onCurrentPageChange: PropTypes.func.isRequired,
-  thumbnail: PropTypes.bool,
+  onPageChange: PropTypes.func.isRequired,
+  onLoadSuccess: PropTypes.func.isRequired,
 };
 
 export default ViewportContent;

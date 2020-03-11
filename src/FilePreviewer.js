@@ -13,11 +13,15 @@ import ViewportControl from './ViewportControl';
 import ViewportContent from './ViewportContent';
 
 const FilePreviewer = props => {
-  const [totalPages, setTotalPages] = useState(1);
-  const [file, setFile] = useState(props.file);
-  const [currentPage, setCurrentPage] = useState(0);
-  const viewportRef = useRef(null);
   const contentRef = useRef(null);
+
+  const viewportRef = useRef(null);
+
+  const [file, setFile] = useState(props.file);
+
+  const [totalPages, setTotalPages] = useState(1);
+
+  const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
     let f = props.file;
@@ -30,16 +34,12 @@ const FilePreviewer = props => {
 
     setFile(f);
     setCurrentPage(0);
-    setTotalPages(1);
   }, [props.file]);
-
-  // Handlers for page turning.
-  const handleTotalPages = totalPages => setTotalPages(totalPages);
-  const handleCurrentPageChange = currentPage => setCurrentPage(currentPage);
 
   // Scroll to the pervious page and update the index.
   const handlePageUp = () => {
     const previousIndex = R.clamp(0, totalPages, currentPage - 1);
+
     setCurrentPage(previousIndex);
 
     const previousPage = document.querySelector(
@@ -53,6 +53,7 @@ const FilePreviewer = props => {
   // Scroll to the next page and update the index.
   const handlePageDown = () => {
     const nextIndex = R.clamp(0, totalPages, currentPage + 1);
+
     setCurrentPage(nextIndex);
 
     const nextPage = document.querySelector(`div[data-pdfpage="${nextIndex}"]`);
@@ -108,12 +109,10 @@ const FilePreviewer = props => {
       <ViewportContent
         file={file}
         contentRef={contentRef}
-        totalPages={totalPages}
         viewportRef={viewportRef}
-        currentPage={currentPage}
         thumbnail={props.thumbnail}
-        onTotalPages={handleTotalPages}
-        onCurrentPageChange={handleCurrentPageChange}
+        onLoadSuccess={setTotalPages}
+        onPageChange={setCurrentPage}
       />
 
       <ViewportControl
