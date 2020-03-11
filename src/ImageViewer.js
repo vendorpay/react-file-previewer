@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const ImageViewer = props => (
-  <img
-    src={
-      props.file.url || `data:${props.file.mimeType};base64,${props.file.data}`
-    }
-    style={{
-      transform: `rotate(${props.file.rotate || 0}deg) scale(${props.file
-        .scale || 1})`,
-    }}
-  />
-);
+const ImageViewer = ({ file, onLoadSuccess }) => {
+  useEffect(() => {
+    onLoadSuccess(1);
+  }, []);
+
+  return (
+    <img
+      src={file.url || `data:${file.mimeType};base64,${file.data}`}
+      style={{
+        transform: `rotate(${file.rotate || 0}deg) scale(${file.scale || 1})`,
+      }}
+    />
+  );
+};
 
 ImageViewer.propTypes = {
   file: PropTypes.shape({
@@ -20,6 +23,7 @@ ImageViewer.propTypes = {
     data: PropTypes.string,
     name: PropTypes.string,
   }),
+  onLoadSuccess: PropTypes.func.isRequired,
 };
 
 export default ImageViewer;
