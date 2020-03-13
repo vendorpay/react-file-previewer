@@ -120,11 +120,11 @@
     padding: 0;
 }
 
-.preview-bar button > svg, .preview-icons button > svg {
-    height: 25px;
-    width: 25px;
-    text-align: center;
-    line-height: 1;
-    left: -12.5px;
-    position: relative;
-}
+/*.preview-bar button > svg, .preview-icons button > svg {*/
+/*    height: 25px;*/
+/*    width: 25px;*/
+/*    text-align: center;*/
+/*    line-height: 1;*/
+/*    left: -12.5px;*/
+/*    position: relative;*/
+/*}*/
