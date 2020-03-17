@@ -1,6 +1,6 @@
 {
   "name": "react-file-previewer",
-  "version": "0.3.5",
+  "version": "0.3.7",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "repository": "git@github.com:vendorpay/react-file-previewer.git",

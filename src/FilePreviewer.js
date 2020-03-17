@@ -18,7 +18,6 @@ import ViewportContent from './ViewportContent';
  *
  * @param  {Object}   props
  * @param  {Function} props.onClick
- * @param  {Boolean}  props.thumbnail
  * @param  {Object}   props.file
  * @param  {String}   props.file.url
  * @param  {String}   props.file.data
@@ -40,7 +39,7 @@ const FilePreviewer = props => {
   /**
    * Handler. Scroll to the pervious page and update the index.
    *
-   * @return {Void}
+   * @return {void}
    */
   const onPageUp = () => {
     const previousIndex = R.clamp(0, totalPages, currentPage - 1);
@@ -58,7 +57,7 @@ const FilePreviewer = props => {
   /**
    * Handler. Scroll to the next page and update the index.
    *
-   * @return {Void}
+   * @return {void}
    */
   const onPageDown = () => {
     const nextIndex = R.clamp(0, totalPages, currentPage + 1);
@@ -75,7 +74,7 @@ const FilePreviewer = props => {
    * Handler. Scale all the pages or image
    * up by a factor of 0.25.
    *
-   * @return {Void}
+   * @return {void}
    */
   const onZoomIn = () => {
     setUsingFitToScreen(false);
@@ -86,7 +85,7 @@ const FilePreviewer = props => {
    * Handler. Scale all the pages or image
    * down by a factor of 0.25.
    *
-   * @return {Void}
+   * @return {void}
    */
   const onZoomOut = () => {
     setUsingFitToScreen(false);
@@ -96,7 +95,7 @@ const FilePreviewer = props => {
   /**
    * Handler. Rotate the PDF (all pages) or Image.
    *
-   * @return {Void}
+   * @return {void}
    */
   const onRotate = () => {
     setFile(setNewRotation(file));
@@ -108,7 +107,7 @@ const FilePreviewer = props => {
    * (This activates the "using fit to screen" mode, which
    * makes the document or image resize based on the viewport size.)
    *
-   * @return {Void}
+   * @return {void}
    */
   const onFitToScreen = () => {
     setUsingFitToScreen(true);
@@ -125,7 +124,7 @@ const FilePreviewer = props => {
    * Handler. Download the current file, it can be a
    * PDF or Image, as `url` or `base64` content.
    *
-   * @return {Void}
+   * @return {void}
    */
   const onDownload = () => {
     const url = file.url || `data:${file.mimeType};base64,${file.data}`;
@@ -137,7 +136,7 @@ const FilePreviewer = props => {
    * processed successfully by `react-pdf`.
    *
    * @param  {Object} pdf
-   * @return {Void}
+   * @return {void}
    */
   const onLoadSuccess = pdf => {
     // Wait until the original sizes gets calculated.
@@ -192,14 +191,12 @@ const FilePreviewer = props => {
         totalPages={totalPages}
         onDownload={onDownload}
         onPageDown={onPageDown}
-        hidden={props.thumbnail}
         currentPage={currentPage}
       />
 
       <ViewportContent
         file={file}
         containerRef={containerRef}
-        thumbnail={props.thumbnail}
         onPageChange={setCurrentPage}
         onLoadSuccess={onLoadSuccess}
       />
@@ -207,7 +204,6 @@ const FilePreviewer = props => {
       <ViewportControl
         onZoomIn={onZoomIn}
         onZoomOut={onZoomOut}
-        hidden={props.thumbnail}
         onFitToScreen={onFitToScreen}
       />
     </div>
@@ -221,8 +217,7 @@ FilePreviewer.propTypes = {
     data: PropTypes.string,
     name: PropTypes.string,
   }).isRequired,
-  onClick: PropTypes.func,
-  thumbnail: PropTypes.bool,
+  onClick: PropTypes.func
 };
 
 FilePreviewer.defaultProps = {

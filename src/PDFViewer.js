@@ -21,7 +21,7 @@ const PDFPage = ({ index, onPageChange, scale = 1 }) => {
 const PDFViewer = ({ file, onLoadSuccess, onPageChange }) => {
   const [totalPages, setTotalPages] = useState(0);
 
-  const handleLoadSucess = useCallback(
+  const handleLoadSuccess = useCallback(
     pdf => {
       onLoadSuccess(pdf);
       setTotalPages(pdf.numPages);
@@ -32,7 +32,7 @@ const PDFViewer = ({ file, onLoadSuccess, onPageChange }) => {
   return (
     <Document
       rotate={file.rotate}
-      onLoadSuccess={handleLoadSucess}
+      onLoadSuccess={handleLoadSuccess}
       file={file.url || `data:${file.mimeType};base64,${file.data}`}
     >
       {R.times(
