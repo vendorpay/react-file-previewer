@@ -11,9 +11,10 @@ const SCALE_ABSOLUTE_MAX = 3.75;
  */
 const setZoomIn = R.converge(R.assoc('scale'), [
   R.compose(
-    R.min(SCALE_ABSOLUTE_MAX),
-    R.add(SCALE_FACTOR),
-    R.propOr(1, 'scale'),
+    R.map(R.min(SCALE_ABSOLUTE_MAX)),
+    R.map(R.add(SCALE_FACTOR)),
+    R.when(R.is(Number), R.of),
+    R.propOr([1], 'scale'),
   ),
   R.identity,
 ]);

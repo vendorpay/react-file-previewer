@@ -1,8 +1,8 @@
-import React, { useEffect, useCallback, useState } from 'react';
 import * as R from 'ramda';
 import PropTypes from 'prop-types';
 import { Document, Page } from 'react-pdf';
 import { useInView } from 'react-intersection-observer';
+import React, { useEffect, useCallback, useState } from 'react';
 
 const PDFPage = ({ index, onPageChange, scale = 1 }) => {
   const [ref, inView] = useInView({ threshold: 0.5 });
@@ -22,9 +22,9 @@ const PDFViewer = ({ file, onLoadSuccess, onPageChange }) => {
   const [totalPages, setTotalPages] = useState(0);
 
   const handleLoadSucess = useCallback(
-    ({ numPages }) => {
-      onLoadSuccess(numPages);
-      setTotalPages(numPages);
+    pdf => {
+      onLoadSuccess(pdf);
+      setTotalPages(pdf.numPages);
     },
     [onLoadSuccess],
   );
@@ -40,8 +40,8 @@ const PDFViewer = ({ file, onLoadSuccess, onPageChange }) => {
           <PDFPage
             key={index}
             index={index}
-            scale={file.scale}
             onPageChange={onPageChange}
+            scale={Array.isArray(file.scale) ? file.scale[index] : file.scale}
           />
         ),
         totalPages,

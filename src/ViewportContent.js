@@ -20,16 +20,15 @@ const isPDF = R.either(
 const ViewportContent = ({
   file,
   thumbnail,
-  contentRef,
-  viewportRef,
-  onLoadSuccess,
+  containerRef,
   onPageChange,
+  onLoadSuccess,
 }) => (
   <div
-    ref={viewportRef}
+    ref={containerRef}
     className={classnames(thumbnail ? 'media-thumbnail' : 'preview-content')}
   >
-    <div className="preview-file" ref={contentRef}>
+    <div className="preview-file">
       {isPDF(file) ? (
         <PDFViewer
           file={file}
@@ -51,8 +50,6 @@ ViewportContent.propTypes = {
     name: PropTypes.string,
   }),
   thumbnail: PropTypes.bool,
-  contentRef: PropTypes.any,
-  viewportRef: PropTypes.any,
   onPageChange: PropTypes.func.isRequired,
   onLoadSuccess: PropTypes.func.isRequired,
 };
