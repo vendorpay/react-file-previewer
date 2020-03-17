@@ -184,6 +184,10 @@ const FilePreviewer = props => {
     setCurrentPage(0);
   }, [props.file]);
 
+  if (!file) {
+    return null;
+  }
+
   return (
     <div ref={viewportRef} onClick={props.onClick} className="preview-wrapper">
       <PreviewBar
