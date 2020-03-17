@@ -184,10 +184,6 @@ const FilePreviewer = props => {
     setCurrentPage(0);
   }, [props.file]);
 
-  if (!file) {
-    return null;
-  }
-
   return (
     <div ref={viewportRef} onClick={props.onClick} className="preview-wrapper">
       <PreviewBar
@@ -224,7 +220,7 @@ FilePreviewer.propTypes = {
     mimeType: PropTypes.string,
     data: PropTypes.string,
     name: PropTypes.string,
-  }),
+  }).isRequired,
   onClick: PropTypes.func,
   thumbnail: PropTypes.bool,
 };
