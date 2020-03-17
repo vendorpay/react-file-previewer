@@ -1,20 +1,34 @@
 /**
  * Get the `scale` attribute for the "fit to screen" option.
  *
- * @param  {Object} viewportElement
- * @param  {Object} contentElement
+ * @param  {Object} viewportElem
+ * @param  {Object} contentElem
  * @return {Number}
  */
-const getFitToScreenScale = (viewportElement, contentElement) => {
+const getFitToScreenScale = (viewportElem, contentElem) => {
+  // Get the preview bar height.
+  const previewBarHeight = 52;
+
   // Get the viewport ratio.
-  const viewportWidth = viewportElement.clientWidth;
-  const viewportHeight = viewportElement.clientHeight;
+  const viewportWidth = viewportElem.width || viewportElem.clientWidth;
+
+  const viewportHeight =
+    (viewportElem.height || viewportElem.clientHeight) - previewBarHeight - 35;
+
   const viewportRatio = viewportWidth / viewportHeight;
 
   // Get the content ratio.
-  const contentWidth = contentElement.offsetWidth;
-  const contentHeight = contentElement.offsetHeight;
+  const contentWidth = contentElem.width || contentElem.offsetWidth;
+  const contentHeight = contentElem.height || contentElem.offsetHeight;
   const contentRatio = contentWidth / contentHeight;
+
+  if (contentHeight > viewportHeight) {
+    return viewportHeight / contentHeight;
+  }
+
+  if (contentWidth > viewportWidth) {
+    return viewportWidth / contentHeight;
+  }
 
   // Get the scaling ratio in `0.25` steps.
   return (
