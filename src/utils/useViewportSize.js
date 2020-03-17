@@ -14,7 +14,7 @@ const useViewportSize = viewportElem => {
       width: pathOr(0, ['current', 'clientWidth'], viewportElem),
       height: pathOr(0, ['current', 'clientHeight'], viewportElem),
     });
-  }, viewportElem);
+  }, [viewportElem]);
 
   useEffect(() => {
     if (!isClient) {
