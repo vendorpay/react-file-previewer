@@ -41,10 +41,19 @@ export const App = () => (
 
 ## Props
 
-| Prop name | Type     | Description |
-|:----------|:---------|:------------|
-| file      | object   | Has properties: `url`, `data`, `mimeType`, `name`. Url can be used by itself. If base64 file, both `data` and `mimeType` must be provided. `name` is simply for a filename on download. |
-| onClick   | function | Event handler for when viewer is clicked |
-| thumbnail | bool     | If 'true', viewer won't display the controls and will fill to size for display as a thumbnail |
-| height    | string   | Height of the viewer passed to the css styles |
-| width     | string   | Width of the viewer passed to the css styles |
+| Prop name    | Type     | Description |
+|:-------------|:---------|:------------|
+| file         | object   | Refer to [file object](#file-object) |
+| onClick      | function | Event handler for when viewer is clicked |
+| hideControls | bool  | If 'true', viewer won't display the zoom, page up/down, and fit-to-screen controls |
+| height       | string   | Height of the viewer passed to the css styles |
+| width        | string   | Width of the viewer passed to the css styles |
+
+### File Object
+
+| Prop name | Type   | Description |
+|:----------|:-------|:------------|
+| url       | string | This can be used by itself with no other prop |
+| data      | string | Base64 encoded string of file. If used, `mimeType` must also be provided |
+| mimeType  | string | Type of the file |
+| name      | string | Used to specify the filename when download button is clicked |
