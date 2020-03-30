@@ -2,49 +2,52 @@
 .preview-wrapper {
   width: 100%;
   display: flex;
+  max-width: 100%;
   position: relative;
   flex-direction: column;
+  touch-action: manipulation;
 }
 
 /* icon buttons */
 .preview-button {
-  height: 40px;
   width: 40px;
-  font-size: 24px;
-  text-align: center;
-  line-height: 1;
-  background-color: transparent;
+  color: #fff;
+  height: 40px;
   border: none;
   outline: none;
-  color: #fff;
+  line-height: 1;
+  font-size: 24px;
+  text-align: center;
   border-radius: 3px;
+  touch-action: manipulation;
+  background-color: transparent;
 }
 
-.preview-button:hover {
-  background-color: rgba(255, 255, 255, 0.25);
-  cursor: pointer;
-}
-
-.preview-button:focus,
+.preview-button:hover,
 .preview-button:active {
+  cursor: pointer;
+  touch-action: manipulation;
+  background-color: rgba(255, 255, 255, 0.25);
 }
 
 .preview-button:disabled {
   opacity: 0.5;
   cursor: default;
+  touch-action: manipulation;
 }
 
 .preview-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  align-content: center;
-  background-color: #2b2f39;
   color: #fff;
   width: 100%;
   height: 52px;
+  display: flex;
   min-height: 52px;
   max-height: 52px;
+  align-items: center;
+  align-content: center;
+  background-color: #2b2f39;
+  touch-action: manipulation;
+  justify-content: space-between;
 }
 
 .preview-bar-left,
@@ -67,15 +70,16 @@
 }
 
 .preview-icons {
-  position: absolute;
-  z-index: 999;
-  display: flex;
-  flex-direction: column;
-  bottom: 24px;
   right: 12px;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 3px;
+  z-index: 999;
+  bottom: 24px;
   padding: 6px;
+  display: flex;
+  position: absolute;
+  border-radius: 3px;
+  flex-direction: column;
+  touch-action: manipulation;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .preview-icons button {
@@ -93,6 +97,7 @@
   position: relative;
   background-color: #68738a;
   height: calc(100vh - 52px);
+  touch-action: manipulation;
 }
 
 .preview-content .preview-file {
@@ -105,26 +110,20 @@
 }
 
 .media-thumbnail {
+  overflow: hidden;
   pointer-events: none;
   background-size: cover;
+  touch-action: manipulation;
   background-position: center;
-  overflow: hidden;
 }
 
 .media-thumbnail img {
-  height: 100%;
   width: 100%;
+  height: 100%;
+  touch-action: manipulation;
 }
 
 .media-thumbnail .react-pdf__Page {
   padding: 0;
+  touch-action: manipulation;
 }
-
-/*.preview-bar button > svg, .preview-icons button > svg {*/
-/*    height: 25px;*/
-/*    width: 25px;*/
-/*    text-align: center;*/
-/*    line-height: 1;*/
-/*    left: -12.5px;*/
-/*    position: relative;*/
-/*}*/

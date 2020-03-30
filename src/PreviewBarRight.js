@@ -5,21 +5,21 @@ import RotateRight from 'mdi-material-ui/RotateRight';
 
 import Button from './Button';
 
-const PreviewBarRight = (props) => (
-    <div className="preview-bar-left">
-        <Button onClick={props.onRotate}>
-            <RotateRight/>
-        </Button>
+const PreviewBarRight = props => (
+  <div className="preview-bar-left">
+    <Button onClick={props.onRotate}>
+      <RotateRight />
+    </Button>
 
-        <Button onClick={props.onDownload}>
-            <Download/>
-        </Button>
-    </div>
+    <Button onClick={props.onDownload}>
+      <Download />
+    </Button>
+  </div>
 );
 
 PreviewBarRight.propTypes = {
-    onRotate: PropTypes.func.isRequired,
-    onDownload: PropTypes.func.isRequired
+  onRotate: PropTypes.func.isRequired,
+  onDownload: PropTypes.func.isRequired,
 };
 
 export default PreviewBarRight;

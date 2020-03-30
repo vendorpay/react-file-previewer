@@ -1,8 +1,8 @@
 import * as R from 'ramda';
 import PropTypes from 'prop-types';
-import { Document, Page } from 'react-pdf';
+import { Document, Page, pdfjs } from 'react-pdf';
+import React, { useEffect, useCallback } from 'react';
 import { useInView } from 'react-intersection-observer';
-import React, { useEffect, useCallback, useState } from 'react';
 
 const PDFPage = ({ index, onPageChange, scale = 1 }) => {
   const [ref, inView] = useInView({ threshold: 0.5 });
@@ -18,22 +18,18 @@ const PDFPage = ({ index, onPageChange, scale = 1 }) => {
   );
 };
 
-const PDFViewer = ({ file, onLoadSuccess, onPageChange }) => {
-  const [totalPages, setTotalPages] = useState(0);
-
-  const handleLoadSuccess = useCallback(
-    pdf => {
-      onLoadSuccess(pdf);
-      setTotalPages(pdf.numPages);
-    },
-    [onLoadSuccess],
-  );
+const PDFViewer = ({ file, totalPages, onLoadSuccess, onPageChange }) => {
+  const handleLoadSuccess = useCallback(onLoadSuccess, [onLoadSuccess]);
 
   return (
     <Document
       rotate={file.rotate}
       onLoadSuccess={handleLoadSuccess}
       file={file.url || `data:${file.mimeType};base64,${file.data}`}
+      options={{
+        cMapPacked: true,
+        cMapUrl: `//cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjs.version}/cmaps/`,
+      }}
     >
       {R.times(
         index => (
@@ -53,12 +49,13 @@ const PDFViewer = ({ file, onLoadSuccess, onPageChange }) => {
 PDFViewer.propTypes = {
   file: PropTypes.shape({
     url: PropTypes.string,
-    mimeType: PropTypes.string,
     data: PropTypes.string,
     name: PropTypes.string,
+    mimeType: PropTypes.string,
   }),
-  onLoadSuccess: PropTypes.func.isRequired,
+  totalPages: PropTypes.number,
   onPageChange: PropTypes.func.isRequired,
+  onLoadSuccess: PropTypes.func.isRequired,
 };
 
 export default PDFViewer;
