@@ -16,7 +16,9 @@ import ReactFilePreviewer from 'react-file-previewer';
 export const App = () => (
     <div>
         <h1>My App</h1>
-        <ReactFilePreviewer file={{url: "https://cors-anywhere.herokuapp.com/http://africau.edu/images/default/sample.pdf"}}/>
+        <ReactFilePreviewer file={{
+            url: "https://cors-anywhere.herokuapp.com/http://africau.edu/images/default/sample.pdf"}}
+        />
     </div>
 );
 ```
@@ -37,6 +39,41 @@ export const App = () => (
         />
     </div>
 );
+```
+
+### Using with HTML file input
+```javascript
+import { useState } from 'react';
+import ReactFilePreviewer from 'react-file-previewer';
+
+const PDF1_URL =
+  'https://cors-anywhere.herokuapp.com/http://africau.edu/images/default/sample.pdf';
+
+export const App = () => {
+    const [file, setFile] = useState({ url: PDF1_URL });
+    
+    const onFileChange = event => {
+        const fileReader = new window.FileReader();
+        const file = event.target.files[0];
+        
+        fileReader.onload = fileLoad => {
+            const { result } = fileLoad.target;
+            setFile({ url: result });
+        };
+        
+        fileReader.readAsDataURL(file);
+    };
+
+    return (
+        <div>
+            <h1>My App</h1>
+            <input type="file" onChange={onFileChange} />
+            <ReactFilePreviewer 
+                file={file}
+            />
+        </div>
+    )
+};
 ```
 
 ## Props
