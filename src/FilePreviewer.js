@@ -5,6 +5,8 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import setZoomIn from './utils/setZoomIn';
 import setZoomOut from './utils/setZoomOut';
+import getFilename from './utils/getFilename';
+import getFileProp from './utils/getFileProp';
 import setNewRotation from './utils/setNewRotation';
 import useViewportSize from './utils/useViewportSize';
 import getFitToScreenScale from './utils/getFitToScreenScale';
@@ -12,31 +14,6 @@ import getFitToScreenScale from './utils/getFitToScreenScale';
 import PreviewBar from './PreviewBar';
 import ViewportControl from './ViewportControl';
 import ViewportContent from './ViewportContent';
-
-/**
- *
- * @param  {Object} file
- * @return {Object}
- */
-const getFileDataInBase64 = R.compose(
-  R.prop('groups'),
-  R.match(/^data:(?<mimeType>[a-z]+\/[a-z]+);base64,(?<data>.*)/),
-  R.propOr('', 'url'),
-);
-
-/**
- *
- * @param {*} props
- */
-const getFileProp = props => {
-  // Check if the file url is base64.
-  if (getFileDataInBase64(props.file)) {
-    // Update the file to include the data and mimeType extracted from the url.
-    return getFileDataInBase64(props.file);
-  }
-
-  return props.file;
-};
 
 /**
  * `FilePreviewer` react component.
@@ -167,28 +144,28 @@ const FilePreviewer = props => {
    */
   const onDownload = () => {
     const url = file.url || `data:${file.mimeType};base64,${file.data}`;
-    return saveFile(url, file.name || 'download.pdf');
+    return saveFile(url, getFilename(file));
   };
 
   /**
    * Handler. Callback after the PDF gets
    * processed successfully by `react-pdf`.
    *
-   * @param  {Object} pdf
+   * @param  {Object} file
    * @return {void}
    */
-  const onLoadSuccess = pdf => {
+  const onLoadSuccess = file => {
     // Wait until the original sizes gets calculated.
     const promises = R.times(async i => {
       // Wait until the original sizes gets calculated.
-      const page = await pdf.getPage(i + 1);
+      const page = await file.getPage(i + 1);
       return R.pick(['width', 'height'], page.getViewport({ scale: 1 }));
-    }, pdf.numPages);
+    }, file.numPages);
 
     // Set the original sizes for this file.
     Promise.all(promises).then(setOriginalSizes);
 
-    setTotalPages(pdf.numPages);
+    setTotalPages(file.numPages);
     setUsingFitToScreen(true);
   };
 
@@ -247,7 +224,6 @@ FilePreviewer.propTypes = {
     name: PropTypes.string,
   }).isRequired,
   onClick: PropTypes.func,
-  totalPages: PropTypes.number,
   hideControls: PropTypes.bool,
 };
 
