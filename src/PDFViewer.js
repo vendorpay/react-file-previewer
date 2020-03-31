@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
-import React, { useEffect, useCallback } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 const PDFPage = ({ index, onPageChange, scale = 1 }) => {
@@ -19,12 +19,10 @@ const PDFPage = ({ index, onPageChange, scale = 1 }) => {
 };
 
 const PDFViewer = ({ file, totalPages, onLoadSuccess, onPageChange }) => {
-  const handleLoadSuccess = useCallback(onLoadSuccess, [onLoadSuccess]);
-
   return (
     <Document
       rotate={file.rotate}
-      onLoadSuccess={handleLoadSuccess}
+      onLoadSuccess={onLoadSuccess}
       file={file.url || `data:${file.mimeType};base64,${file.data}`}
       options={{
         cMapPacked: true,

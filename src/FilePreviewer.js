@@ -44,12 +44,6 @@ const FilePreviewer = props => {
     setCurrentPage(0);
     setOriginalSizes([]);
     setFile(getFileProp(props));
-
-    // Unreference the viewport and container when the component is unmounting.
-    return () => {
-      viewportRef.current = null;
-      containerRef.current = null;
-    };
   }, [props.file]);
 
   /**
