@@ -39,8 +39,6 @@ const FilePreviewer = props => {
   const viewportSize = useViewportSize(viewportRef);
 
   useEffect(() => {
-    console.log('props effect', props.file);
-
     // Reset all the attributes when the file prop changes.
     setTotalPages(1);
     setCurrentPage(0);
