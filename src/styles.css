@@ -3,6 +3,7 @@
   width: 100%;
   display: flex;
   max-width: 100%;
+  max-height: 100%;
   position: relative;
   flex-direction: column;
   touch-action: manipulation;
@@ -96,13 +97,17 @@
   overflow: scroll;
   position: relative;
   background-color: #68738a;
-  height: calc(100vh - 52px);
   touch-action: manipulation;
+  height: calc(100vh - 52px);
 }
 
 .preview-content .preview-file {
   margin: auto;
   padding: 12px;
+}
+
+.preview-content .preview-file img {
+  transition: all 250ms;
 }
 
 .preview-pdf-page {
