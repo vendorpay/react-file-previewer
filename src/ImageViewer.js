@@ -42,10 +42,21 @@ const getResponseLikePDF = imgRef => {
  * @param  {Array}    params.file.scale
  * @param  {Number}   params.file.rotate
  * @param  {String}   params.file.mimeType
+ * @param  {Array}    params.originalSizes
  * @param  {Function} params.onLoadSuccess
  */
-const ImageViewer = ({ file, onLoadSuccess }) => {
+const ImageViewer = ({ file, originalSizes, onLoadSuccess }) => {
   const imgRef = useRef(null);
+
+  console.log('originalSizes', originalSizes);
+
+  const scaleImage =
+    !originalSizes[0] || !getScale(file)
+      ? {}
+      : {
+          width: originalSizes[0].width * getScale(file),
+          height: originalSizes[0].height * getScale(file),
+        };
 
   return (
     <img
@@ -53,9 +64,8 @@ const ImageViewer = ({ file, onLoadSuccess }) => {
       onLoad={() => onLoadSuccess(getResponseLikePDF(imgRef))}
       src={file.url || `data:${file.mimeType};base64,${file.data}`}
       style={{
-        transform: `rotate(${getRotation(file)}deg) scale(${getScale(file)})`,
-        // transform: `rotate(${getRotation(file)}deg)`,
-        // zoom: getScale(file),
+        ...scaleImage,
+        transform: `rotate(${getRotation(file)}deg)`,
       }}
     />
   );
@@ -69,6 +79,7 @@ ImageViewer.propTypes = {
     rotate: PropTypes.number,
     mimeType: PropTypes.string,
   }),
+  originalSizes: PropTypes.array,
   onLoadSuccess: PropTypes.func.isRequired,
 };
 
