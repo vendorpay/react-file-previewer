@@ -48,8 +48,6 @@ const getResponseLikePDF = imgRef => {
 const ImageViewer = ({ file, originalSizes, onLoadSuccess }) => {
   const imgRef = useRef(null);
 
-  console.log('originalSizes', originalSizes);
-
   const scaleImage =
     !originalSizes[0] || !getScale(file)
       ? {}
