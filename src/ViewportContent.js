@@ -21,6 +21,7 @@ const ViewportContent = ({
   totalPages,
   containerRef,
   onPageChange,
+  originalSizes,
   onLoadSuccess,
 }) => (
   <div ref={containerRef} className={'preview-content'}>
@@ -33,7 +34,11 @@ const ViewportContent = ({
           onLoadSuccess={onLoadSuccess}
         />
       ) : (
-        <ImageViewer file={file} onLoadSuccess={onLoadSuccess} />
+        <ImageViewer
+          file={file}
+          onLoadSuccess={onLoadSuccess}
+          originalSizes={originalSizes}
+        />
       )}
     </div>
   </div>

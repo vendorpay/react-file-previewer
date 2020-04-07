@@ -196,6 +196,7 @@ const FilePreviewer = props => {
         file={file}
         totalPages={totalPages}
         containerRef={containerRef}
+        originalSizes={originalSizes}
         onPageChange={setCurrentPage}
         onLoadSuccess={onLoadSuccess}
       />
