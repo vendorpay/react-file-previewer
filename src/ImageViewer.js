@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import React, { useRef, useEffect } from 'react';
 import { propOr, pathOr } from 'ramda';
+import React, { useState, useRef } from 'react';
 
 /**
  * Get the scale for this image.
@@ -47,6 +47,15 @@ const getResponseLikePDF = imgRef => {
  */
 const ImageViewer = ({ file, originalSizes, onLoadSuccess }) => {
   const imgRef = useRef(null);
+  const [isLoading, setLoading] = useState(true);
+
+  const onLoad = () => {
+    // Execute the callback.
+    onLoadSuccess(getResponseLikePDF(imgRef));
+
+    // Set the loading state to false.
+    setLoading(false);
+  };
 
   const scaleImage =
     !originalSizes[0] || !getScale(file)
@@ -59,10 +68,11 @@ const ImageViewer = ({ file, originalSizes, onLoadSuccess }) => {
   return (
     <img
       ref={imgRef}
-      onLoad={() => onLoadSuccess(getResponseLikePDF(imgRef))}
+      onLoad={onLoad}
       src={file.url || `data:${file.mimeType};base64,${file.data}`}
       style={{
         ...scaleImage,
+        opacity: isLoading ? 0 : 1,
         transform: `rotate(${getRotation(file)}deg)`,
       }}
     />
