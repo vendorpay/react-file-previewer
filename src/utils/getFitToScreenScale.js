@@ -25,7 +25,7 @@ const getViewportHeight = viewportElem =>
  * @param  {Object} contentElem
  * @return {Number}
  */
-const getFitToScreenScale = (viewportElem, contentElem) => {
+export const getFitToScreenScale = (viewportElem, contentElem) => {
   // Get the viewport ratio.
   const viewportWidth = getViewportWidth(viewportElem);
   const viewportHeight = getViewportHeight(viewportElem);
@@ -61,4 +61,22 @@ const getFitToScreenScale = (viewportElem, contentElem) => {
   );
 };
 
-export default getFitToScreenScale;
+/**
+ * Get the `scale` attribute for the "fit to width" option.
+ *
+ * @param  {Object} viewportElem
+ * @param  {Object} contentElem
+ * @return {Number}
+ */
+export const getFitToWidthScale = (viewportElem, contentElem) => {
+  // Get the viewport ratio.
+  const viewportWidth = getViewportWidth(viewportElem);
+
+  // Get the content ratio.
+  const contentWidth = contentElem.width || contentElem.offsetWidth;
+
+  // Get the scaling ratio in `0.25` steps.
+  return Math.round((viewportWidth / contentWidth) * 4) / 4;
+};
+
+export default getFitToWidthScale;
