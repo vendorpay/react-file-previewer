@@ -136,3 +136,7 @@
   padding: 0;
   touch-action: manipulation;
 }
+
+.react-pdf__Page__annotations.annotationLayer {
+  display: none;
+}
