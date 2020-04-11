@@ -1,20 +1,9 @@
 import React from 'react';
-import * as R from 'ramda';
 import PropTypes from 'prop-types';
 
+import isPDF from './utils/isPDF';
 import PDFViewer from './PDFViewer';
 import ImageViewer from './ImageViewer';
-
-/**
- * Check if a file is a pdf.
- *
- * @param  {Object}
- * @return {Boolean}
- */
-const isPDF = R.either(
-  R.o(R.endsWith('.pdf'), R.propOr('', 'url')),
-  R.propEq('mimeType', 'application/pdf'),
-);
 
 const ViewportContent = ({
   file,

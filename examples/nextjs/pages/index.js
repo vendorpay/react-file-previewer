@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import FilePreviewer from 'react-file-previewer';
+import FilePreviewer, { FilePreviewerThumbnail } from 'react-file-previewer';
 
 const SAMPLE_PDF =
   'https://cors-anywhere.herokuapp.com/http://africau.edu/images/default/sample.pdf';
@@ -54,6 +54,10 @@ export default () => {
       const { result } = fileLoad.target;
 
       setPdf({ url: result });
+
+      setTimeout(() => {
+        setPdf({ url: SAMPLE_PDF });
+      }, 5000);
     };
 
     fileReader.readAsDataURL(file);
@@ -94,10 +98,13 @@ export default () => {
         <input type="file" onChange={onFileChange} />
 
         <h2>Set a two pages PDF</h2>
-        <button onClick={onSetPdf}>Set PDF</button>
+        <FilePreviewerThumbnail onClick={onSetPdf} file={{ url: SAMPLE_PDF }} />
 
         <h2>Set an image</h2>
-        <button onClick={onSetImage}>Set Image</button>
+        <FilePreviewerThumbnail
+          onClick={onSetImage}
+          file={{ url: SAMPLE_IMG }}
+        />
 
         <h2>Use an URL</h2>
         <input type="text" onChange={onSetUrl} />
