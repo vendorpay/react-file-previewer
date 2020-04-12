@@ -5,9 +5,9 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import isPDF from './utils/isPDF';
 import getFileProp from './utils/getFileProp';
 
-const RenderPDF = ({ file }) => (
+const RenderPDF = ({ src }) => (
   <Document
-    file={file.url || `data:${file.mimeType};base64,${file.data}`}
+    file={src}
     options={{
       cMapPacked: true,
       cMapUrl: `//cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjs.version}/cmaps/`,
@@ -30,6 +30,7 @@ const RenderPDF = ({ file }) => (
  */
 const FilePreviewerThumbnail = props => {
   const file = getFileProp(props);
+  const fileSrc = file.url || `data:${file.mimeType};base64,${file.data}`;
 
   return (
     <div
@@ -37,7 +38,7 @@ const FilePreviewerThumbnail = props => {
       onClick={props.onClick}
       className="thumbnail-wrapper"
     >
-      {isPDF(file) ? <RenderPDF file={file} /> : <img src={file.url} />}
+      {isPDF(file) ? <RenderPDF src={fileSrc} /> : <img src={fileSrc} />}
     </div>
   );
 };
