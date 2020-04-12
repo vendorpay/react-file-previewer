@@ -1,11 +1,11 @@
 // Make sure to leave a padding.
-const PADDING = 38;
+const PADDING = 12 * 4;
 
 // Get the preview bar height.
 const PREVIEW_BAR_HEIGHT = 52;
 
 const getViewportWidth = viewportElem =>
-  (viewportElem.width || viewportElem.clientWidth) - PADDING;
+  viewportElem.width || viewportElem.clientWidth;
 
 /**
  * Get the viewport height, with its constraints.
@@ -75,8 +75,8 @@ export const getFitToWidthScale = (viewportElem, contentElem) => {
   // Get the content ratio.
   const contentWidth = contentElem.width || contentElem.offsetWidth;
 
-  // Get the scaling ratio in `0.25` steps.
-  return Math.round((viewportWidth / contentWidth) * 4) / 4;
+  // Get the scaling ratio, after removing the padding.
+  return (viewportWidth - PADDING) / contentWidth;
 };
 
 export default getFitToWidthScale;
