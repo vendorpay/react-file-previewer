@@ -1,6 +1,6 @@
 {
   "name": "react-file-previewer",
-  "version": "0.5.4",
+  "version": "0.6.0",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "repository": "git@github.com:vendorpay/react-file-previewer.git",
@@ -43,15 +43,16 @@
     "react-pdf": "^4.1.0"
   },
   "devDependencies": {
+    "@babel/compat-data": "^7.8.0",
+    "@babel/preset-env": "^7.8.0",
+    "babel-loader": "^8.1.0",
     "@babel/core": "^7.8.4",
-    "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
     "@storybook/addon-actions": "^5.3.13",
     "@storybook/addon-links": "^5.3.13",
     "@storybook/addons": "^5.3.13",
     "@storybook/react": "^5.3.13",
     "babel-jest": "^25.1.0",
-    "babel-loader": "^8.0.6",
     "classnames": "^2.2.6",
     "husky": "^4.2.3",
     "jest": "^25.1.0",
@@ -66,5 +67,8 @@
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-bundle-size": "^1.0.3",
     "rollup-plugin-copy": "^3.3.0"
+  },
+  "resolutions": {
+    "@babel/preset-env": "^7.8.0"
   }
 }
