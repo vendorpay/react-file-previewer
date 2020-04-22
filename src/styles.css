@@ -57,6 +57,11 @@
   touch-action: manipulation;
 }
 
+.preview-button svg {
+  position: relative;
+  left: -12px;
+}
+
 .preview-bar {
   color: #fff;
   width: 100%;
