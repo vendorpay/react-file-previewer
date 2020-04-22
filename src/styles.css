@@ -31,9 +31,12 @@
 
 /* icon buttons */
 .preview-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 40px;
-  color: #fff;
   height: 40px;
+  color: #fff;
   border: none;
   outline: none;
   line-height: 1;
@@ -55,11 +58,6 @@
   opacity: 0.5;
   cursor: default;
   touch-action: manipulation;
-}
-
-.preview-button svg {
-  position: relative;
-  left: -12px;
 }
 
 .preview-bar {
