@@ -11,12 +11,12 @@ This component supports URLs and base64 encoded data.
 
 ### Basic Usage
 ```javascript
-import ReactFilePreviewer from 'react-file-previewer';
+import FilePreviewer from 'react-file-previewer';
 
 export const App = () => (
     <div>
         <h1>My App</h1>
-        <ReactFilePreviewer file={{
+        <FilePreviewer file={{
             url: "https://cors-anywhere.herokuapp.com/http://africau.edu/images/default/sample.pdf"}}
         />
     </div>
@@ -25,12 +25,12 @@ export const App = () => (
 
 ### Base64 Usage
 ```javascript
-import ReactFilePreviewer from 'react-file-previewer';
+import FilePreviewer from 'react-file-previewer';
 
 export const App = () => (
     <div>
         <h1>My App</h1>
-        <ReactFilePreviewer 
+        <FilePreviewer 
             file={{
                 data: "<base64 string>",
                 mimeType: 'application/pdf',
@@ -44,7 +44,7 @@ export const App = () => (
 ### Using with HTML file input
 ```javascript
 import { useState } from 'react';
-import ReactFilePreviewer from 'react-file-previewer';
+import FilePreviewer from 'react-file-previewer';
 
 const PDF1_URL =
   'https://cors-anywhere.herokuapp.com/http://africau.edu/images/default/sample.pdf';
@@ -68,7 +68,7 @@ export const App = () => {
         <div>
             <h1>My App</h1>
             <input type="file" onChange={onFileChange} />
-            <ReactFilePreviewer 
+            <FilePreviewer 
                 file={file}
             />
         </div>
@@ -76,15 +76,47 @@ export const App = () => {
 };
 ```
 
-## Props
+### Using it as a thumbnail
+This will render the first page of the file as a thumbnail. It takes the exact same props as the default export
+`FilePreviewer`.
+
+```javascript
+import {FilePreviewerThumbnail} from 'react-file-previewer';
+
+export const App = () => (
+    <div>
+        <h1>My App</h1>
+        <FilePreviewerThumbnail 
+            file={{
+                data: "<base64 string>",
+                mimeType: 'application/pdf',
+                name: 'sample.pdf' // for download
+            }}
+        />
+        -or-
+        <FilePreviewerThumbnail file={{
+            url: "https://cors-anywhere.herokuapp.com/http://africau.edu/images/default/sample.pdf"}}
+        />
+    </div>
+);
+```
+
+## FilePreviewer Props
 
 | Prop name    | Type     | Description |
 |:-------------|:---------|:------------|
 | file         | object   | Refer to [file object](#file-object) |
 | onClick      | function | Event handler for when viewer is clicked |
 | hideControls | bool  | If 'true', viewer won't display the zoom, page up/down, and fit-to-screen controls |
-| height       | string   | Height of the viewer passed to the css styles |
-| width        | string   | Width of the viewer passed to the css styles |
+
+## FilePreviewerThumbnail Props
+
+| Prop name    | Type     | Description |
+|:-------------|:---------|:------------|
+| file         | object   | Refer to [file object](#file-object) |
+| onClick      | function | Event handler for when viewer is clicked |
+| hideControls | bool  | If 'true', viewer won't display the zoom, page up/down, and fit-to-screen controls |
+| style        | object  | Any css style overrides |
 
 ### File Object
 
