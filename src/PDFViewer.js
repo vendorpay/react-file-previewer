@@ -11,6 +11,12 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   import.meta.url,
 ).toString();
 
+const options = {
+  cMapPacked: true,
+  cMapUrl: `//unpkg.com/pdfjs-dist@${pdfjs.version}/cmaps/`,
+  standardFontDataUrl: `//unpkg.com/pdfjs-dist@${pdfjs.version}/standard_fonts`,
+};
+
 const PDFPage = ({ index, onPageChange, scale = 1 }) => {
   const [ref, inView] = useInView({ threshold: 0.5 });
 
@@ -31,6 +37,7 @@ const PDFViewer = ({ file, totalPages, onLoadSuccess, onPageChange }) => {
       rotate={file.rotate}
       onLoadSuccess={onLoadSuccess}
       file={file.url || `data:${file.mimeType};base64,${file.data}`}
+      options={options}
     >
       {R.times(
         index => (
