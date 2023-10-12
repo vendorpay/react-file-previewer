@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Download from 'mdi-material-ui/Download';
-import RotateRight from 'mdi-material-ui/RotateRight';
+import { BsCloudDownload } from 'react-icons/bs';
+import { FaArrowRotateRight } from 'react-icons/fa6';
 
 import Button from './Button';
 
 const PreviewBarRight = props => (
   <div className="preview-bar-left">
     <Button onClick={props.onRotate}>
-      <RotateRight />
+      <FaArrowRotateRight />
     </Button>
 
     <Button onClick={props.onDownload}>
-      <Download />
+      <BsCloudDownload />
     </Button>
   </div>
 );

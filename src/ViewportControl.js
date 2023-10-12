@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PlusBox from 'mdi-material-ui/PlusBox';
-import MinusBox from 'mdi-material-ui/MinusBox';
-import ArrowExpandHorizontal from 'mdi-material-ui/ArrowExpandHorizontal';
+import { BsFillPlusSquareFill } from 'react-icons/bs';
+import { PiMinusSquareFill } from 'react-icons/pi';
+import { BiExpandHorizontal } from 'react-icons/bi';
 
 import Button from './Button';
 
@@ -14,15 +14,15 @@ const ViewportControl = props => {
   return (
     <div className="preview-icons">
       <Button onClick={props.onZoomIn}>
-        <PlusBox />
+        <BsFillPlusSquareFill />
       </Button>
 
       <Button onClick={props.onZoomOut} className="preview-icons">
-        <MinusBox />
+        <PiMinusSquareFill />
       </Button>
 
       <Button onClick={props.onFitToScreen} className="preview-icons">
-        <ArrowExpandHorizontal />
+        <BiExpandHorizontal />
       </Button>
     </div>
   );
