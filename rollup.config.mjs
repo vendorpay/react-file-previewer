@@ -34,7 +34,6 @@ export default {
     'react-icons/fa',
     'react-icons/bi',
     ...Object.keys(pkg.dependencies),
-    ...Object.keys(pkg.peerDependencies),
   ],
   plugins: [
     bundleSize(),
