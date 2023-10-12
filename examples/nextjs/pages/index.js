@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import FilePreviewer, { FilePreviewerThumbnail } from 'react-file-previewer';
+import FilePreviewer, { FilePreviewerThumbnail } from '@react-league/react-file-previewer';
 
 const SAMPLE_PDF = 'https://cors-anywhere.herokuapp.com/https://www.africau.edu/images/default/sample.pdf';
 

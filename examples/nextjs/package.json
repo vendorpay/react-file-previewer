@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "next": "13.5.4",
-    "react-file-previewer": "link:../.."
+    "@react-league/react-file-previewer": "link:../.."
   },
   "devDependencies": {
     "node-loader": "^2.0.0"
