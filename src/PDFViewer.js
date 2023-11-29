@@ -5,11 +5,7 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import { useInView } from 'react-intersection-observer';
 
 // Get the pdf.js worker from cloudflare content delivery network.
-// pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.js',
-  import.meta.url,
-).toString();
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 const options = {
   cMapPacked: true,
