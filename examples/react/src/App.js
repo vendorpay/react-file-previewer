@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import FilePreviewer from '@react-league/react-file-previewer';
-import '@react-league/react-file-previewer/dist/styles.css';
+import FilePreviewer from 'react-file-previewer';
+import 'react-file-previewer/dist/styles.css';
 
 function App() {
   const [numPages, setNumPages] = useState(0);
