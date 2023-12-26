@@ -23,6 +23,9 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
   "lint-staged": {
     "*.js": [
       "yarn run lint",
