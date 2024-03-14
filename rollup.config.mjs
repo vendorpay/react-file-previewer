@@ -1,8 +1,8 @@
-import babel from 'rollup-plugin-babel';
+import babel from '@rollup/plugin-babel';
 import copy from 'rollup-plugin-copy';
 import bundleSize from 'rollup-plugin-bundle-size';
 
-import pkg from './package.json';
+import pkg from './package.json' assert { type: "json" };
 
 const globals = { react: 'React' };
 
@@ -29,15 +29,11 @@ export default {
     getCJS({ file: 'dist/index.cjs.js' }),
   ],
   external: [
-    'mdi-material-ui/PlusBox',
-    'mdi-material-ui/MinusBox',
-    'mdi-material-ui/Download',
-    'mdi-material-ui/ChevronUp',
-    'mdi-material-ui/RotateRight',
-    'mdi-material-ui/ChevronDown',
-    'mdi-material-ui/ArrowExpandHorizontal',
+    'react-icons/bs',
+    'react-icons/pi',
+    'react-icons/fa',
+    'react-icons/bi',
     ...Object.keys(pkg.dependencies),
-    ...Object.keys(pkg.peerDependencies),
   ],
   plugins: [
     bundleSize(),

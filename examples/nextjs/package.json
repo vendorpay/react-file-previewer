@@ -5,8 +5,10 @@
     "dev": "next dev"
   },
   "dependencies": {
-    "@zeit/next-css": "^1.0.1",
-    "next": "^9.3.2",
-    "react-file-previewer": "link:../../"
+    "next": "13.5.4",
+    "react-file-previewer": "link:../.."
+  },
+  "devDependencies": {
+    "node-loader": "^2.0.0"
   }
 }

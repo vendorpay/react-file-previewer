@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import FilePreviewer, { FilePreviewerThumbnail } from 'react-file-previewer';
 
-const SAMPLE_PDF =
-  'https://cors-anywhere.herokuapp.com/http://africau.edu/images/default/sample.pdf';
+const SAMPLE_PDF = 'https://cors-anywhere.herokuapp.com/https://www.africau.edu/images/default/sample.pdf';
 
 const SAMPLE_IMG =
   'http://blogs.ubc.ca/CourseBlogSample01/wp-content/themes/thesis/rotator/sample-1.jpg';
@@ -54,10 +53,6 @@ export default () => {
       const { result } = fileLoad.target;
 
       setPdf({ url: result });
-
-      setTimeout(() => {
-        setPdf({ url: SAMPLE_PDF });
-      }, 5000);
     };
 
     fileReader.readAsDataURL(file);

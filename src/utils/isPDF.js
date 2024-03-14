@@ -8,7 +8,7 @@ import * as R from 'ramda';
  */
 const isPDF = R.either(
   R.o(R.endsWith('.pdf'), R.propOr('', 'url')),
-  R.propEq('mimeType', 'application/pdf'),
+  R.propEq('application/pdf', 'mimeType')
 );
 
 export default isPDF;

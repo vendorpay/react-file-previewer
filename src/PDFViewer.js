@@ -5,7 +5,13 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import { useInView } from 'react-intersection-observer';
 
 // Get the pdf.js worker from cloudflare content delivery network.
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.1.266/pdf.worker.js`;
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
+
+const options = {
+  cMapPacked: true,
+  cMapUrl: `//unpkg.com/pdfjs-dist@${pdfjs.version}/cmaps/`,
+  standardFontDataUrl: `//unpkg.com/pdfjs-dist@${pdfjs.version}/standard_fonts`,
+};
 
 const PDFPage = ({ index, onPageChange, scale = 1 }) => {
   const [ref, inView] = useInView({ threshold: 0.5 });
@@ -27,10 +33,7 @@ const PDFViewer = ({ file, totalPages, onLoadSuccess, onPageChange }) => {
       rotate={file.rotate}
       onLoadSuccess={onLoadSuccess}
       file={file.url || `data:${file.mimeType};base64,${file.data}`}
-      options={{
-        cMapPacked: true,
-        cMapUrl: `//cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjs.version}/cmaps/`,
-      }}
+      options={options}
     >
       {R.times(
         index => (
