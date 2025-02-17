@@ -1,15 +1,22 @@
+> [!IMPORTANT]
+> This repository has been moved to [React league](https://github.com/react-league/react-file-previewer)
+
 # @react-league/react-file-previewer
+
 A browser/device-agnostic file previewer for PDF and image file types built on top of React-PDF.
 
 ## Installation
+
 ```
 npm i @react-league/react-file-previewer
 ```
 
 ## Usage
+
 This component supports URLs and base64 encoded data.
 
 ### Basic Usage
+
 ```javascript
 import FilePreviewer from '@react-league/react-file-previewer';
 
@@ -24,6 +31,7 @@ export const App = () => (
 ```
 
 ### Base64 Usage
+
 ```javascript
 import FilePreviewer from '@react-league/react-file-previewer';
 
@@ -42,6 +50,7 @@ export const App = () => (
 ```
 
 ### Using with HTML file input
+
 ```javascript
 import { useState } from 'react';
 import FilePreviewer from '@react-league/react-file-previewer';
@@ -77,6 +86,7 @@ export const App = () => {
 ```
 
 ### Using it as a thumbnail
+
 This will render the first page of the file as a thumbnail. It takes the exact same props as the default export
 `FilePreviewer`.
 
