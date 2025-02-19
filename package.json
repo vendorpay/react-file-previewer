@@ -1,6 +1,6 @@
 {
   "name": "react-file-previewer",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "repository": "git@github.com:vendorpay/react-file-previewer.git",
@@ -46,6 +46,7 @@
     "@babel/core": "7.23.2",
     "@babel/preset-env": "7.23.2",
     "@babel/preset-react": "7.22.15",
+    "@rollup/plugin-babel": "6.0.4",
     "@storybook/addon-actions": "7.4.6",
     "@storybook/addon-links": "7.4.6",
     "@storybook/addons": "7.4.6",
@@ -63,7 +64,6 @@
     "react-test-renderer": "18.2.0",
     "rimraf": "5.0.5",
     "rollup": "4.0.2",
-    "@rollup/plugin-babel": "6.0.4",
     "rollup-plugin-bundle-size": "^1.0.3",
     "rollup-plugin-copy": "3.5.0"
   },
