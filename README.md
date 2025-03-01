@@ -1,17 +1,24 @@
-# react-file-previewer
+> [!IMPORTANT]
+> This repository has been moved to [React league](https://github.com/react-league/react-file-previewer)
+
+# @react-league/react-file-previewer
+
 A browser/device-agnostic file previewer for PDF and image file types built on top of React-PDF.
 
 ## Installation
+
 ```
-npm i react-file-previewer
+npm i @react-league/react-file-previewer
 ```
 
 ## Usage
+
 This component supports URLs and base64 encoded data.
 
 ### Basic Usage
+
 ```javascript
-import FilePreviewer from 'react-file-previewer';
+import FilePreviewer from '@react-league/react-file-previewer';
 
 export const App = () => (
     <div>
@@ -24,13 +31,14 @@ export const App = () => (
 ```
 
 ### Base64 Usage
+
 ```javascript
-import FilePreviewer from 'react-file-previewer';
+import FilePreviewer from '@react-league/react-file-previewer';
 
 export const App = () => (
     <div>
         <h1>My App</h1>
-        <FilePreviewer 
+        <FilePreviewer
             file={{
                 data: "<base64 string>",
                 mimeType: 'application/pdf',
@@ -42,25 +50,26 @@ export const App = () => (
 ```
 
 ### Using with HTML file input
+
 ```javascript
 import { useState } from 'react';
-import FilePreviewer from 'react-file-previewer';
+import FilePreviewer from '@react-league/react-file-previewer';
 
 const PDF1_URL =
   'https://cors-anywhere.herokuapp.com/http://africau.edu/images/default/sample.pdf';
 
 export const App = () => {
     const [file, setFile] = useState({ url: PDF1_URL });
-    
+
     const onFileChange = event => {
         const fileReader = new window.FileReader();
         const file = event.target.files[0];
-        
+
         fileReader.onload = fileLoad => {
             const { result } = fileLoad.target;
             setFile({ url: result });
         };
-        
+
         fileReader.readAsDataURL(file);
     };
 
@@ -68,7 +77,7 @@ export const App = () => {
         <div>
             <h1>My App</h1>
             <input type="file" onChange={onFileChange} />
-            <FilePreviewer 
+            <FilePreviewer
                 file={file}
             />
         </div>
@@ -77,16 +86,17 @@ export const App = () => {
 ```
 
 ### Using it as a thumbnail
+
 This will render the first page of the file as a thumbnail. It takes the exact same props as the default export
 `FilePreviewer`.
 
 ```javascript
-import {FilePreviewerThumbnail} from 'react-file-previewer';
+import {FilePreviewerThumbnail} from '@react-league/react-file-previewer';
 
 export const App = () => (
     <div>
         <h1>My App</h1>
-        <FilePreviewerThumbnail 
+        <FilePreviewerThumbnail
             file={{
                 data: "<base64 string>",
                 mimeType: 'application/pdf',
